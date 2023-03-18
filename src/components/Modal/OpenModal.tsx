@@ -12,13 +12,20 @@ interface Props {
   handleClose: Dispatch<SetStateAction<boolean>>;
 }
 
-function OpenModal(props: Props) {
+/**
+ * 
+ * @param open boolean
+ * @param handleClose function
+ * @description  
+ */
+
+function OpenModal({open, handleClose}: Props): JSX.Element {
   const modalDetails = useAppSelector((state) => state.modal);
   return (
     <div>
       <Modal
-        open={props.open}
-        onClose={props.handleClose}
+        open={open}
+        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -38,14 +45,14 @@ function OpenModal(props: Props) {
           <div className="flex flex-1">
             <Button
               buttonName="Cancel"
-              handleModalState={props.handleClose}
-              modalState={props.open}
+              handleModalState={handleClose}
+              modalState={open}
               buttonType="outlined"
             />
             <Button
               buttonName="Done"
-              handleModalState={props.handleClose}
-              modalState={props.open}
+              handleModalState={handleClose}
+              modalState={open}
               buttonType="contained"
             />
           </div>
