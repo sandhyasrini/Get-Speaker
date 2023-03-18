@@ -4,6 +4,9 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import SelectItem from "../SelectItem/SelectItem";
 import TextBox from "../TextBox/TextBox";
+import ModalForm from "./ModalForm";
+import ModalList from "./ModalList";
+import { useAppSelector } from "../../store/store";
 
 interface Props {
   open: boolean;
@@ -11,6 +14,7 @@ interface Props {
 }
 
 function OpenModal(props: Props) {
+  const modalDetails = useAppSelector((state) => state.modal);
   return (
     <div>
       <Modal
@@ -21,14 +25,16 @@ function OpenModal(props: Props) {
       >
         <Box className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Create New User
+            {modalDetails.heading}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} className="m-10">
-          <TextBox label="Name" value=""/>
-          <TextBox label="email-address" value=""/>
-          <SelectItem menuItems={['FullStack', 'Frontend', 'Backend']} label="Role"/>
-          <SelectItem menuItems={['Full-time', 'Part-time', 'Contractor']} label="Status" />
-          <SelectItem menuItems={['Team-A', 'Team-B', 'Team-C']} label="Team" />
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            className="m-10"
+          >
+            {(modalDetails.modalAction === "Edit" ||
+              modalDetails.modalAction === "Create") && <ModalForm />}
+            {modalDetails.modalAction === "Randomize" && <ModalList />}
           </Typography>
         </Box>
       </Modal>
