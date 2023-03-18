@@ -6,7 +6,7 @@ import { changeHeading } from "../../store/slices/modalSlice";
 interface Props {
   buttonName: string;
   buttonType?: "text" | "outlined" | "contained" | undefined;
-  buttonAction: "Create" | "Edit" | "Randomize";
+  buttonAction?: "Create" | "Edit" | "Randomize";
   handleModalState: Dispatch<SetStateAction<boolean>>;
   modalState: boolean;
 }
@@ -20,8 +20,10 @@ function Button({
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   function handleClick() {
-    console.log("handling click");
-    dispatch(changeHeading({ heading: buttonName, modalAction: buttonAction }));
+    buttonAction &&
+      dispatch(
+        changeHeading({ heading: buttonName, modalAction: buttonAction })
+      );
     handleModalState(!modalState);
   }
 

@@ -9,7 +9,7 @@ interface Props {
 
 function TextBox({ label, value }: Props) {
   return (
-    <div className="my-10">
+    <div className="my-8">
       <FormControl fullWidth className="my-10" size="small">
         <TextField
           label={label}

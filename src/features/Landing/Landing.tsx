@@ -7,7 +7,7 @@ function Landing() {
   return (
     <div>
         <Navbar />
-        <ButtonGroup />
+        <ButtonGroup firstButtonName="Name Randomizer" secondButtonName="Create New User"/>
         <Dashboard />
     </div>
   )

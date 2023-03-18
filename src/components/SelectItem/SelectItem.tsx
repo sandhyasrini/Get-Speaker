@@ -17,7 +17,7 @@ function SelectItem({ menuItems, label }: MenuItems): JSX.Element {
   };
 
   return (
-    <div className="my-10">
+    <div className="my-8">
       <FormControl fullWidth className="my-10" size="small">
         <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select

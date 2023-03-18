@@ -2,11 +2,10 @@ import React, { Dispatch, SetStateAction } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import SelectItem from "../SelectItem/SelectItem";
-import TextBox from "../TextBox/TextBox";
 import ModalForm from "./ModalForm";
 import ModalList from "./ModalList";
 import { useAppSelector } from "../../store/store";
+import Button from "../Button/Button";
 
 interface Props {
   open: boolean;
@@ -36,6 +35,20 @@ function OpenModal(props: Props) {
               modalDetails.modalAction === "Create") && <ModalForm />}
             {modalDetails.modalAction === "Randomize" && <ModalList />}
           </Typography>
+          <div className="flex flex-1">
+            <Button
+              buttonName="Cancel"
+              handleModalState={props.handleClose}
+              modalState={props.open}
+              buttonType="outlined"
+            />
+            <Button
+              buttonName="Done"
+              handleModalState={props.handleClose}
+              modalState={props.open}
+              buttonType="contained"
+            />
+          </div>
         </Box>
       </Modal>
     </div>
