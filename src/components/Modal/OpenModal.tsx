@@ -3,10 +3,10 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import SelectItem from "../SelectItem/SelectItem";
+import TextBox from "../TextBox/TextBox";
 
 interface Props {
   open: boolean;
-  handleOpen: Dispatch<SetStateAction<boolean>>;
   handleClose: Dispatch<SetStateAction<boolean>>;
 }
 
@@ -24,9 +24,11 @@ function OpenModal(props: Props) {
             Create New User
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }} className="m-10">
-          <SelectItem menuItems={['FullStack', 'Frontend', 'Backend']} dropdownName="Role"/>
-          <SelectItem menuItems={['Full-time', 'Part-time', 'Contractor']} dropdownName="Status" />
-          <SelectItem menuItems={['Team-A', 'Team-B', 'Team-C']} dropdownName="Team" />
+          <TextBox label="Name" value=""/>
+          <TextBox label="email-address" value=""/>
+          <SelectItem menuItems={['FullStack', 'Frontend', 'Backend']} label="Role"/>
+          <SelectItem menuItems={['Full-time', 'Part-time', 'Contractor']} label="Status" />
+          <SelectItem menuItems={['Team-A', 'Team-B', 'Team-C']} label="Team" />
           </Typography>
         </Box>
       </Modal>

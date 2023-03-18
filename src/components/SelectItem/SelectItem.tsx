@@ -5,11 +5,11 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 interface MenuItems {
-  menuItems: string[];
-  dropdownName: string;
+  menuItems: string[] ;
+  label: string;
 }
 
-function SelectItem({ menuItems, dropdownName }: MenuItems): JSX.Element {
+function SelectItem({ menuItems, label }: MenuItems): JSX.Element {
   const [age, setAge] = React.useState("");
 
   const handleChange = (event: SelectChangeEvent): void => {
@@ -19,12 +19,12 @@ function SelectItem({ menuItems, dropdownName }: MenuItems): JSX.Element {
   return (
     <div className="my-10">
       <FormControl fullWidth className="my-10" size="small">
-        <InputLabel id="demo-simple-select-label">{dropdownName}</InputLabel>
+        <InputLabel id="demo-simple-select-label">{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={age}
-          label={dropdownName}
+          label={label}
           onChange={handleChange}
         >
           {menuItems.map((item, index) => {
