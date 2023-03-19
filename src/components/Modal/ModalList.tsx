@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function ModalList() {
   const names = ["sandhya", "swetha", "Lina", "Melina"];
   return (

@@ -9,9 +9,19 @@ import { developer } from "../../store/slices/developerSlice";
 interface MenuItems {
   menuItems: any[];
   label: string;
+  id: string;
+  onChangeElement?: (
+    e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent | null,
+    label: string
+  ) => void;
 }
 
-function SelectItem({ menuItems, label }: MenuItems): JSX.Element {
+function SelectItem({
+  menuItems,
+  label,
+  id,
+  onChangeElement,
+}: MenuItems): JSX.Element {
   const [dropdownValue, setDropDownValue] = React.useState("");
   const developer = useAppSelector(
     (state) => state.developer.selectedDeveloper
@@ -24,20 +34,22 @@ function SelectItem({ menuItems, label }: MenuItems): JSX.Element {
     }
   }, [modalDetails]);
 
-  const handleChange = (event: SelectChangeEvent): void => {
+  const handleChange = (event: SelectChangeEvent, label: string): void => {
+    console.log("inside change");
     setDropDownValue(event.target.value as string);
+    onChangeElement(event, label);
   };
 
   return (
     <div className="my-8">
       <FormControl fullWidth className="my-10" size="small">
-        <InputLabel id="demo-simple-select-label">{label}</InputLabel>
+        <InputLabel id={id}>{label}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select"
+          name={id}
           value={dropdownValue}
           label={label}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e, id)}
         >
           {menuItems.map((item, index) => {
             return (

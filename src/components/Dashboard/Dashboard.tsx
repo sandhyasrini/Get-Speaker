@@ -64,7 +64,7 @@ function Dashboard(): JSX.Element {
                 className="bg-white border-b dark:bg-gray-100 dark:border-gray-700"
               >
                 <td className="px-6 py-4">
-                  {tableData.first_name} {tableData.last_name}
+                  {tableData.name}
                 </td>
                 <td className="px-6 py-4">{tableData.email}</td>
                 <td className="px-6 py-4">{tableData.role}</td>
@@ -97,12 +97,6 @@ function Dashboard(): JSX.Element {
                 count={developers.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
-                SelectProps={{
-                  inputProps: {
-                    "aria-label": "rows per page",
-                  },
-                  native: true,
-                }}
                 onPageChange={handleChangePage}
                 onRowsPerPageChange={handleChangeRowsPerPage}
                 ActionsComponent={PaginationComponent}

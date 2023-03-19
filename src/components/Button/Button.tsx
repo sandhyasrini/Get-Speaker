@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
 import MaterialButton from "@mui/material/Button";
 import { useAppDispatch } from "../../store/store";
 import { changeHeading } from "../../store/slices/modalSlice";
@@ -7,7 +7,7 @@ interface Props {
   buttonName: string;
   buttonType?: "text" | "outlined" | "contained" | undefined;
   buttonAction?: "Create" | "Edit" | "Randomize";
-  handleModalState: Dispatch<SetStateAction<boolean>>;
+  handleModalState: (e: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
   modalState: boolean;
 }
 
@@ -19,12 +19,12 @@ function Button({
   buttonAction,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
-  function handleClick() {
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     buttonAction &&
       dispatch(
         changeHeading({ heading: buttonName, modalAction: buttonAction })
       );
-    handleModalState(!modalState);
+    handleModalState(e, !modalState);
   }
 
   return (

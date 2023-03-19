@@ -2,8 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface developer {
   id: number;
-  first_name: string;
-  last_name: string;
+  name: string;
   email: string;
   role: string;
   status?: string;
@@ -19,8 +18,7 @@ const initialState: developerState = {
   developers: [
     {
       id: 123,
-      first_name: "Sandhya",
-      last_name: "Srinivasan",
+      name: "Sandhya",
       email: "sandhya_srinivasan@outlook.com",
       role: "Fullstack",
       status: "Full time",
@@ -28,8 +26,7 @@ const initialState: developerState = {
     },
     {
       id: 456,
-      first_name: "Swetha",
-      last_name: "Srinivasan",
+      name: "Swetha",
       email: "swethasrini02@gmail.com",
       role: "Frontend",
       status: "Contractor",
@@ -37,16 +34,14 @@ const initialState: developerState = {
     },
     {
       id: 754,
-      first_name: "Max",
-      last_name: "Carl",
+      name: "Max",
       email: "max.carl@beyondplay.com",
       role: "Fullstack",
       team: "Team A",
     },
     {
       id: 549,
-      first_name: "Nitish",
-      last_name: "Ram",
+      name: "Nitish",
       email: "nitish.ram@outlook.com",
       role: "Backend",
       status: "Full time",

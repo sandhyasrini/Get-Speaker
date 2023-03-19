@@ -1,11 +1,22 @@
-import React from "react";
+import { SelectChangeEvent } from "@mui/material/Select";
+import React, { Dispatch, SetStateAction } from "react";
 import { developer } from "../../store/slices/developerSlice";
 import { useAppSelector } from "../../store/store";
 import { findUniqueItems } from "../../utils/commonUtils";
 import SelectItem from "../SelectItem/SelectItem";
 import TextBox from "../TextBox/TextBox";
 
-function ModalForm() {
+interface Props {
+  captureChange: (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | SelectChangeEvent<string>
+      | null,
+    label: string
+  ) => void;
+}
+
+function ModalForm({ captureChange }: Props) {
   const getDeveloper = useAppSelector(
     (state) => state.developer.selectedDeveloper
   );
@@ -18,9 +29,11 @@ function ModalForm() {
         label="Name"
         value={
           modalDetails.modalAction === "Edit"
-            ? (getDeveloper as developer)?.first_name
+            ? (getDeveloper as developer)?.name
             : ""
         }
+        id="name"
+        onChangeElement={captureChange}
       />
       <TextBox
         label="email-address"
@@ -29,18 +42,26 @@ function ModalForm() {
             ? (getDeveloper as developer)?.email
             : ""
         }
+        id="email"
+        onChangeElement={captureChange}
       />
       <SelectItem
         menuItems={findUniqueItems(developers, "role")}
         label="Role"
+        id = "role"
+        onChangeElement={captureChange}
       />
       <SelectItem
         menuItems={findUniqueItems(developers, "status")}
         label="Status"
+        id = "status"
+        onChangeElement={captureChange}
       />
       <SelectItem
         menuItems={findUniqueItems(developers, "team")}
         label="Team"
+        id = "team"
+        onChangeElement={captureChange}
       />
     </div>
   );
