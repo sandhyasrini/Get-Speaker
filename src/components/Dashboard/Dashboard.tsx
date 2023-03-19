@@ -69,7 +69,7 @@ function Dashboard(): JSX.Element {
                 <td className="px-6 py-4">{tableData.email}</td>
                 <td className="px-6 py-4">{tableData.role}</td>
                 <td className="px-6 py-4">
-                  {tableData?.status ? tableData.status : "Not available"}
+                  {tableData?.status}
                 </td>
                 <td className="px-6 py-4">{tableData.team}</td>
                 <td className="px-6 py-4 text-right">

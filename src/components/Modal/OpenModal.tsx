@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -6,7 +6,11 @@ import ModalForm from "./ModalForm";
 import ModalList from "./ModalList";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import Button from "../Button/Button";
-import { addDeveloper, developer } from "../../store/slices/developerSlice";
+import {
+  addDeveloper,
+  developer,
+  editDeveloper,
+} from "../../store/slices/developerSlice";
 import { SelectChangeEvent } from "@mui/material/Select";
 
 interface Props {
@@ -26,6 +30,12 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
   const [details, setDetails] = useState<developer | {}>({});
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    setDetails(
+      getAllState.modal.modalAction === "Edit" &&
+        getAllState.developer.selectedDeveloper
+    );
+  }, [getAllState]);
   function addDetails(
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | null,
     label: string
@@ -37,7 +47,18 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
     e: React.MouseEvent<HTMLButtonElement> | null,
     isOpen: boolean
   ) {
-    dispatch(addDeveloper(details as developer));
+    console.log({
+      ...details,
+      id: getAllState.developer.developers.length + 1,
+    });
+    getAllState.modal.modalAction === "Edit"
+      ? dispatch(editDeveloper(details as developer))
+      : dispatch(
+          addDeveloper({
+            ...details,
+            id: getAllState.developer.developers.length + 1,
+          } as developer)
+        );
     handleClose(isOpen);
   }
 
