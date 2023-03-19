@@ -10,9 +10,9 @@ export interface developer {
   team: string;
 }
 
-interface developerState {
+export interface developerState {
   developers: developer[];
-  developer: developer | {};
+  selectedDeveloper: developer | {};
 }
 
 const initialState: developerState = {
@@ -52,78 +52,8 @@ const initialState: developerState = {
       status: "Full time",
       team: "Team C",
     },
-    {
-      id: 123,
-      first_name: "Sandhya",
-      last_name: "Srinivasan",
-      email: "sandhya_srinivasan@outlook.com",
-      role: "Fullstack",
-      status: "Full time",
-      team: "Team A",
-    },
-    {
-      id: 456,
-      first_name: "Swetha",
-      last_name: "Srinivasan",
-      email: "swethasrini02@gmail.com",
-      role: "Frontend",
-      status: "Contractor",
-      team: "Team B",
-    },
-    {
-      id: 754,
-      first_name: "Max",
-      last_name: "Carl",
-      email: "max.carl@beyondplay.com",
-      role: "Fullstack",
-      team: "Team A",
-    },
-    {
-      id: 549,
-      first_name: "Nitish",
-      last_name: "Ram",
-      email: "nitish.ram@outlook.com",
-      role: "Backend",
-      status: "Full time",
-      team: "Team C",
-    },
-    {
-      id: 123,
-      first_name: "Sandhya",
-      last_name: "Srinivasan",
-      email: "sandhya_srinivasan@outlook.com",
-      role: "Fullstack",
-      status: "Full time",
-      team: "Team A",
-    },
-    {
-      id: 456,
-      first_name: "Swetha",
-      last_name: "Srinivasan",
-      email: "swethasrini02@gmail.com",
-      role: "Frontend",
-      status: "Contractor",
-      team: "Team B",
-    },
-    {
-      id: 754,
-      first_name: "Max",
-      last_name: "Carl",
-      email: "max.carl@beyondplay.com",
-      role: "Fullstack",
-      team: "Team A",
-    },
-    {
-      id: 549,
-      first_name: "Nitish",
-      last_name: "Ram",
-      email: "nitish.ram@outlook.com",
-      role: "Backend",
-      status: "Full time",
-      team: "Team C",
-    },
   ],
-  developer: {},
+  selectedDeveloper: {},
 };
 
 export const developerSlice = createSlice({
@@ -134,11 +64,11 @@ export const developerSlice = createSlice({
       state.developers.push(action.payload);
     },
     getDeveloper: (state, action: PayloadAction<developer>) => {
-      state.developer = action.payload;
+      state.selectedDeveloper = action.payload;
     },
   },
   //   extraReducers: (builder) => {},
 });
 
 export default developerSlice.reducer;
-export const { addDeveloper } = developerSlice.actions;
+export const { addDeveloper, getDeveloper } = developerSlice.actions;

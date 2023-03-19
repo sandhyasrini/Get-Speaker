@@ -5,6 +5,7 @@ import TableHead from "../TableHead/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import { changeHeading } from "../../store/slices/modalSlice";
 import PaginationComponent from "../PaginationComponent/PaginationComponent";
+import { getDeveloper } from "../../store/slices/developerSlice";
 
 function Dashboard(): JSX.Element {
   const developers = useAppSelector((state) => state.developer.developers);
@@ -17,8 +18,13 @@ function Dashboard(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  function handleModalOpen() {
+  function handleModalOpen(event: React.MouseEvent<HTMLDivElement> | null) {
+    const editDeveloper = event?.currentTarget.dataset.id;
+    let developer = developers.find((user) => {
+      return user.id === Number(editDeveloper);
+    });
     dispatch(changeHeading({ heading: "Edit User", modalAction: "Edit" }));
+    developer && dispatch(getDeveloper(developer));
     handleOpen();
   }
 
@@ -52,8 +58,11 @@ function Dashboard(): JSX.Element {
                   page * rowsPerPage + rowsPerPage
                 )
               : developers
-            ).map((tableData) => (
-              <tr className="bg-white border-b dark:bg-gray-100 dark:border-gray-700">
+            ).map((tableData, index) => (
+              <tr
+                key={index}
+                className="bg-white border-b dark:bg-gray-100 dark:border-gray-700"
+              >
                 <td className="px-6 py-4">
                   {tableData.first_name} {tableData.last_name}
                 </td>
@@ -66,6 +75,7 @@ function Dashboard(): JSX.Element {
                 <td className="px-6 py-4 text-right">
                   <div
                     onClick={handleModalOpen}
+                    data-id={tableData.id}
                     className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   >
                     View/Edit

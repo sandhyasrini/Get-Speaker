@@ -4,11 +4,10 @@ import { modalSlice } from "./slices/modalSlice";
 import { useDispatch, TypedUseSelectorHook, useSelector } from "react-redux";
 
 export function createStore() {
-    console.log(modalSlice)
   return configureStore({
     reducer: {
       developer: developerSlice.reducer,
-      modal: modalSlice.reducer
+      modal: modalSlice.reducer,
     },
   });
 }

@@ -4,7 +4,7 @@ import React from "react";
 
 interface Props {
   label: string;
-  value: string
+  value: string;
 }
 
 function TextBox({ label, value }: Props) {
@@ -16,6 +16,7 @@ function TextBox({ label, value }: Props) {
           id="outlined-size-small"
           defaultValue={value}
           size="small"
+          inputProps={{pattern: "[a-z][A-Z]"}}
         />
       </FormControl>
     </div>

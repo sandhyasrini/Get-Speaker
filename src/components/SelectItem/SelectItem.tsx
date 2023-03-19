@@ -1,19 +1,31 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { useAppSelector } from "../../store/store";
+import { developer } from "../../store/slices/developerSlice";
 
 interface MenuItems {
-  menuItems: string[] ;
+  menuItems: any[];
   label: string;
 }
 
 function SelectItem({ menuItems, label }: MenuItems): JSX.Element {
-  const [age, setAge] = React.useState("");
+  const [dropdownValue, setDropDownValue] = React.useState("");
+  const developer = useAppSelector(
+    (state) => state.developer.selectedDeveloper
+  ) as developer;
+  const modalDetails = useAppSelector((state) => state.modal);
+
+  useEffect(() => {
+    if (modalDetails.modalAction === "Edit") {
+      setDropDownValue(developer[label.toLocaleLowerCase()]);
+    }
+  }, [modalDetails]);
 
   const handleChange = (event: SelectChangeEvent): void => {
-    setAge(event.target.value as string);
+    setDropDownValue(event.target.value as string);
   };
 
   return (
@@ -23,14 +35,14 @@ function SelectItem({ menuItems, label }: MenuItems): JSX.Element {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
+          value={dropdownValue}
           label={label}
           onChange={handleChange}
         >
           {menuItems.map((item, index) => {
             return (
-              <MenuItem key={index} value={item}>
-                {item}
+              <MenuItem key={item.id} value={item.value}>
+                {item.value}
               </MenuItem>
             );
           })}
