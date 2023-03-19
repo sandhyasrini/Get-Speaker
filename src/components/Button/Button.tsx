@@ -9,6 +9,7 @@ interface Props {
   buttonAction?: "Create" | "Edit" | "Randomize";
   handleModalState: (e: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
   modalState: boolean;
+  isDisabled: boolean;
 }
 
 function Button({
@@ -17,6 +18,7 @@ function Button({
   handleModalState,
   modalState,
   buttonAction,
+  isDisabled
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -29,7 +31,7 @@ function Button({
 
   return (
     <div className="px-1 h-10">
-      <MaterialButton onClick={handleClick} variant={buttonType}>
+      <MaterialButton disabled={isDisabled} onClick={handleClick} variant={buttonType}>
         {buttonName}
       </MaterialButton>
     </div>

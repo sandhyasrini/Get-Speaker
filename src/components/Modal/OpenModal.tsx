@@ -18,16 +18,10 @@ interface Props {
   handleClose: Dispatch<SetStateAction<boolean>>;
 }
 
-/**
- *
- * @param open boolean
- * @param handleClose function
- * @description
- */
-
 function OpenModal({ open, handleClose }: Props): JSX.Element {
   const getAllState = useAppSelector((state) => state);
   const [details, setDetails] = useState<developer | {}>({});
+  const [formFilled, setFormFilled] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,22 +29,23 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
       getAllState.modal.modalAction === "Edit" &&
         getAllState.developer.selectedDeveloper
     );
+    getAllState.modal.modalAction === "Edit"
+      ? setFormFilled(true)
+      : setFormFilled(false);
   }, [getAllState]);
+
   function addDetails(
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | null,
     label: string
   ) {
-    setDetails({ ...details, [e.target?.name]: e.target.value });
+    e.target.value !== "" &&
+      setDetails({ ...details, [e.target?.name]: e.target.value });
   }
 
   function onSubmitForm(
     e: React.MouseEvent<HTMLButtonElement> | null,
     isOpen: boolean
   ) {
-    console.log({
-      ...details,
-      id: getAllState.developer.developers.length + 1,
-    });
     getAllState.modal.modalAction === "Edit"
       ? dispatch(editDeveloper(details as developer))
       : dispatch(
@@ -88,7 +83,10 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
           >
             {(getAllState.modal.modalAction === "Edit" ||
               getAllState.modal.modalAction === "Create") && (
-              <ModalForm captureChange={addDetails} />
+              <ModalForm
+                captureChange={addDetails}
+                checkFormFilled={setFormFilled}
+              />
             )}
             {getAllState.modal.modalAction === "Randomize" && <ModalList />}
           </Typography>
@@ -98,12 +96,14 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
               handleModalState={onCloseModal}
               modalState={open}
               buttonType="outlined"
+              isDisabled={false}
             />
             <Button
               buttonName="Done"
               handleModalState={onSubmitForm}
               modalState={open}
               buttonType="contained"
+              isDisabled={!formFilled}
             />
           </div>
         </Box>

@@ -20,6 +20,7 @@ function ButtonGroup({firstButtonName, secondButtonName}: Props) {
         handleModalState={handleOpen}
         modalState={open}
         buttonAction="Randomize"
+        isDisabled={false}
       />
       <Button
         buttonName={secondButtonName}
@@ -27,6 +28,7 @@ function ButtonGroup({firstButtonName, secondButtonName}: Props) {
         handleModalState={handleOpen}
         modalState={open}
         buttonAction="Create"
+        isDisabled={false}
       />
       <OpenModal open={open} handleClose={handleClose} />
     </div>

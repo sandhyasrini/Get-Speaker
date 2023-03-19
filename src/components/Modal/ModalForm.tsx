@@ -14,9 +14,11 @@ interface Props {
       | null,
     label: string
   ) => void;
+  checkFormFilled:  Dispatch<SetStateAction<boolean>>;
+
 }
 
-function ModalForm({ captureChange }: Props) {
+function ModalForm({ captureChange, checkFormFilled }: Props) {
   const getDeveloper = useAppSelector(
     (state) => state.developer.selectedDeveloper
   );
@@ -34,6 +36,7 @@ function ModalForm({ captureChange }: Props) {
         }
         id="name"
         onChangeElement={captureChange}
+        checkTextFilled={checkFormFilled}
       />
       <TextBox
         label="email-address"
@@ -44,24 +47,28 @@ function ModalForm({ captureChange }: Props) {
         }
         id="email"
         onChangeElement={captureChange}
+        checkTextFilled={checkFormFilled}
       />
       <SelectItem
         menuItems={findUniqueItems(developers, "role")}
         label="Role"
         id = "role"
         onChangeElement={captureChange}
+        checkSelected={checkFormFilled}
       />
       <SelectItem
         menuItems={findUniqueItems(developers, "status")}
         label="Status"
         id = "status"
         onChangeElement={captureChange}
+        checkSelected={checkFormFilled}
       />
       <SelectItem
         menuItems={findUniqueItems(developers, "team")}
         label="Team"
         id = "team"
         onChangeElement={captureChange}
+        checkSelected={checkFormFilled}
       />
     </div>
   );

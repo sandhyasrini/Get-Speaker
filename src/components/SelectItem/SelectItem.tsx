@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Dispatch, FocusEvent, SetStateAction, useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -10,6 +10,7 @@ interface MenuItems {
   menuItems: any[];
   label: string;
   id: string;
+  checkSelected: Dispatch<SetStateAction<boolean>>;
   onChangeElement?: (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent | null,
     label: string
@@ -21,8 +22,10 @@ function SelectItem({
   label,
   id,
   onChangeElement,
+  checkSelected,
 }: MenuItems): JSX.Element {
   const [dropdownValue, setDropDownValue] = React.useState("");
+
   const developer = useAppSelector(
     (state) => state.developer.selectedDeveloper
   ) as developer;
@@ -35,9 +38,14 @@ function SelectItem({
   }, [modalDetails]);
 
   const handleChange = (event: SelectChangeEvent, label: string): void => {
-    console.log("inside change");
     setDropDownValue(event.target.value as string);
     onChangeElement(event, label);
+  };
+
+  const handleOnBlur = (
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    dropdownValue === "" && checkSelected(false);
   };
 
   return (
@@ -45,6 +53,7 @@ function SelectItem({
       <FormControl fullWidth className="my-10" size="small">
         <InputLabel id={id}>{label}</InputLabel>
         <Select
+          onBlur={handleOnBlur}
           labelId="demo-simple-select-label"
           name={id}
           value={dropdownValue}
