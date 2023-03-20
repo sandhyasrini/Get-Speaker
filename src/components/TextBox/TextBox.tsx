@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import FormControl from "@mui/material/FormControl";
 import { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import { debounce } from "../../utils/commonUtils";
+import { regEx } from "../../config/regexPatterns";
 
 interface Props {
   label: string;
@@ -24,20 +24,22 @@ function TextBox({
 }: Props) {
   const [isEmpty, setIsEmpty] = useState(false);
 
-  function onBlurEvent(e: any) {
-    if (e.nativeEvent.target.value === "") {
+  function onBlurEvent(e: any, label:string) {
+    if (e.nativeEvent.target.value === "" || !regEx[label.toLocaleLowerCase()].test(e.nativeEvent.target.value)) {
       setIsEmpty(true);
       checkTextFilled(false);
+      return
     } else {
       setIsEmpty(false);
       checkTextFilled(true);
+      return
     }
   }
 
   return (
     <div className="my-8">
-      <FormControl fullWidth className="my-10" size="small">
-        <TextField
+      <div  className="w-[100%] my-8">
+        <TextField fullWidth
           label={label}
           name={id}
           defaultValue={value}
@@ -47,10 +49,10 @@ function TextBox({
               onChangeElement(e, label),
             400
           )}
-          onBlur={onBlurEvent}
+          onBlur={(e) => onBlurEvent(e, id)}
           size="small"
         />
-      </FormControl>
+      </div>
     </div>
   );
 }
