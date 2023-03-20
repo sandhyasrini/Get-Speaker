@@ -1,32 +1,54 @@
+import { SelectChangeEvent } from "@mui/material/Select";
 import React, { useState } from "react";
 import Button from "../Button/Button";
 import SelectItem from "../SelectItem/SelectItem";
 
 interface Props {
-    open?: boolean;
-  } 
+  open?: boolean;
+  onChange: (e: SelectChangeEvent<string>,  label: string) => void
+  onSubmitForm: () => void
+  isDropdownVisible: boolean
+ }
 
-function RandomizerForm({ open}: Props) {
-    const [isDropDownVisible, setDropdownVisibility] = useState(true)
-
-    function onSubmitForm() {
-        setDropdownVisibility(false)
-    }
-function onChange() {
+function RandomizerForm({ open, onChange, onSubmitForm, isDropdownVisible }: Props) {
+  function handleClose() {
 }
-    function handleClose()
-    {
-        console.log("Handle close")
-    }
   return (
-    <div >
-    { isDropDownVisible && 
     <div>
-      <SelectItem menuItems={[{value:"FullStack"}, {value: "Frontend"}, {value: "Backend"}]} label="Developers" id="role" onChangeElement={onChange} />
-      <SelectItem menuItems={[{value:"FullStack"}, {value: "Frontend"}, {value: "Backend"}]} label="Sorting Order" id="role"  onChangeElement={onChange} />
-      <SelectItem menuItems={[{value:"FullStack"}, {value: "Frontend"}, {value: "Backend"}]} label="Speaker" id="role"  onChangeElement={onChange} />
-      <div className="flex flex-1">
-      <Button
+      {isDropdownVisible && (
+        <div>
+          <SelectItem
+            menuItems={[
+              { id: 1, value: "FullStack" },
+              { id: 2, value: "Frontend" },
+              { id: 3, value: "Backend" },
+            ]}
+            label="Developers"
+            id="developers"
+            onChangeElement={onChange}
+          />
+          <SelectItem
+            menuItems={[
+              { id: 1, value: "FullStack" },
+              { id: 2, value: "Frontend" },
+              { id: 3, value: "Backend" },
+            ]}
+            label="Sorting Order"
+            id="sorting_order"
+            onChangeElement={onChange}
+          />
+          <SelectItem
+            menuItems={[
+              { id: 1, value: "FullStack" },
+              { id: 2, value: "Frontend" },
+              { id: 3, value: "Backend" },
+            ]}
+            label="Speaker"
+            id="speaker"
+            onChangeElement={onChange}
+          />
+          <div className="flex flex-1">
+            <Button
               buttonName="Cancel"
               handleModalState={handleClose}
               modalState={open}
@@ -42,9 +64,9 @@ function onChange() {
               isDisabled={false}
               buttonType="InsideModal"
             />
-            </div>
-            </div>
-   }
+          </div>
+        </div>
+      )}
     </div>
   );
 }
