@@ -53,5 +53,10 @@ const randomizeValues = (
 };
 
 export const getSortedArray = (arr: any[]): any[] => {
-  return [];
+let tempArray = [...arr]
+  tempArray.sort((a, b) => 
+  {
+  return a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase())
+})
+  return tempArray;
 };

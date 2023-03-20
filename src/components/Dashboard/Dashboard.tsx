@@ -6,9 +6,11 @@ import TablePagination from "@mui/material/TablePagination";
 import { changeHeading } from "../../store/slices/modalSlice";
 import PaginationComponent from "../PaginationComponent/PaginationComponent";
 import { getDeveloper } from "../../store/slices/developerSlice";
+import { getSortedArray } from "../../utils/commonUtils";
 
 function Dashboard(): JSX.Element {
-  const developers = useAppSelector((state) => state.developer.developers);
+  const getAllDevelopers = useAppSelector((state) => state.developer.developers);
+  const developers = getSortedArray(getAllDevelopers)
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState<boolean>(false);
