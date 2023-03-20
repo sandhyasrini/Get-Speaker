@@ -34,7 +34,7 @@ export const getRandomNames = (arr: any[], n: number): any[] => {
 export const shuffleValues = (array: any[]): any[] => {
   var copy = [].concat([...array]);
   copy.sort(function () {
-    return 0.2 - Math.random(); 
+    return 0.2 - Math.random();
   });
   return copy;
 };
@@ -50,4 +50,8 @@ const randomizeValues = (
       uniqueRandomValue.add(array[uniqueItem]);
     }
   });
+};
+
+export const getSortedArray = (arr: any[]): any[] => {
+  return [];
 };

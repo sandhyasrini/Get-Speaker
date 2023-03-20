@@ -16,7 +16,8 @@ interface MenuItems {
   menuItems: any[];
   label: string;
   id: string;
-  checkSelected?: Dispatch<SetStateAction<boolean>>;
+  checkSelected?: Dispatch<SetStateAction<any>>;
+  filledData?: {};
   onChangeElement?: (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent | null,
     label: string
@@ -29,6 +30,7 @@ function SelectItem({
   id,
   onChangeElement,
   checkSelected,
+  filledData
 }: MenuItems): JSX.Element {
   const [dropdownValue, setDropDownValue] = useState("");
   const [error, setError] = useState(false);
@@ -45,19 +47,21 @@ function SelectItem({
   }, [modalDetails]);
 
   const handleChange = (event: SelectChangeEvent, label: string): void => {
-    setDropDownValue(event.target.value as string);
-    onChangeElement(event, label);
+
   };
 
   const handleOnBlur = (
-    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: SelectChangeEvent, label: string
   ) => {
-    if (dropdownValue === "") {
-      checkSelected && checkSelected(false);
-      setError(true);
-    } else {
+    // if (dropdownValue === "") {
+    //   checkSelected && checkSelected({...filledData, [label]: false});
+    //   setError(true);
+    // } else {
       setError(false);
-    }
+      setDropDownValue(e.target.value as string);
+      onChangeElement(e, label);
+      checkSelected && checkSelected({...filledData, [label]: true});
+    // }
   };
 
   return (
@@ -65,13 +69,13 @@ function SelectItem({
       <FormControl fullWidth className="my-10" size="small">
         <InputLabel id={id}>{label}</InputLabel>
         <Select
-          onBlur={handleOnBlur}
+          // onBlur={(e) => handleOnBlur(e, id)}
           labelId="demo-simple-select-label"
           name={id}
           error={error}
           value={dropdownValue}
           label={label}
-          onChange={(e) => handleChange(e, id)}
+          onChange={(e) => handleOnBlur(e, id)}
         >
           {menuItems.map((item, index) => {
             return (

@@ -8,7 +8,8 @@ interface Props {
   label: string;
   value: string;
   id: string;
-  checkTextFilled: Dispatch<SetStateAction<boolean>>;
+  filledData?: {};
+  checkTextFilled: Dispatch<SetStateAction<any>>;
   onChangeElement?: (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | null,
     label: string
@@ -21,35 +22,41 @@ function TextBox({
   id,
   onChangeElement,
   checkTextFilled,
+  filledData,
 }: Props) {
   const [isEmpty, setIsEmpty] = useState(false);
 
-  function onBlurEvent(e: any, label:string) {
-    if (e.nativeEvent.target.value === "" || !regEx[label.toLocaleLowerCase()].test(e.nativeEvent.target.value)) {
+  function onChangeEvent(e: any, label: string) {
+    if (
+      e.nativeEvent.target.value === "" ||
+      !regEx[label.toLocaleLowerCase()].test(e.nativeEvent.target.value)
+    ) {
       setIsEmpty(true);
-      checkTextFilled(false);
-      return
+      checkTextFilled && checkTextFilled({ ...filledData, [label]: false });
+
+      return;
     } else {
       setIsEmpty(false);
-      checkTextFilled(true);
-      return
+      onChangeElement(e, label)
+      checkTextFilled && checkTextFilled({ ...filledData, [label]: true });
+      return;
     }
   }
 
   return (
     <div className="my-8">
-      <div  className="w-[100%] my-8">
-        <TextField fullWidth
+      <div className="w-[100%] my-8">
+        <TextField
+          fullWidth
           label={label}
           name={id}
           defaultValue={value}
           error={isEmpty}
           onChange={debounce(
             (e: React.ChangeEvent<HTMLInputElement>) =>
-              onChangeElement(e, label),
+            onChangeEvent(e, id),
             400
           )}
-          onBlur={(e) => onBlurEvent(e, id)}
           size="small"
         />
       </div>

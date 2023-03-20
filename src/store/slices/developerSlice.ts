@@ -20,7 +20,6 @@ export const getDeveloperList = createAsyncThunk(
   async () => {
     try {
       const { data } = await axios.get(`http://localhost:3001/`);
-      console.log("inside async thunk");
       return data;
     } catch (error) {
       return error;
@@ -84,7 +83,6 @@ export const developerSlice = createSlice({
         state.developers = [...action.payload].sort();
       })
       .addCase(addDeveloperToDatabase.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.developers = [...state.developers, action.payload].sort();
       })
       .addCase(editDeveloper.fulfilled, (state, action) => {

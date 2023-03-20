@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ModalHeading {
+export interface ModalHeading {
   heading: string;
-  modalAction: "Create" | "Edit" | "Randomize";
+  modalAction: "Create" | "Edit" | "Randomize" ;
 }
+
 
 const initialState = {
   heading: "",
