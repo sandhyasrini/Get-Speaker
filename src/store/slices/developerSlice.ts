@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
+import { defaultReduxState } from "../../config/constants";
 
 export interface developer {
   id: number;
@@ -10,9 +11,17 @@ export interface developer {
   team: string;
 }
 
+export interface dropdown {
+  id: number;
+  value: string;
+}
+
 export interface developerState {
   developers: developer[];
   selectedDeveloper: developer | {};
+  roles: dropdown[];
+  status: dropdown[];
+  team: dropdown[]
 }
 
 export const getDeveloperList = createAsyncThunk(
@@ -58,6 +67,9 @@ export const editDeveloper = createAsyncThunk(
 const initialState: developerState = {
   developers: [],
   selectedDeveloper: {},
+  roles : defaultReduxState.roles,
+  team: defaultReduxState.team,
+  status: defaultReduxState.status
 };
 
 export const developerSlice = createSlice({
@@ -67,7 +79,7 @@ export const developerSlice = createSlice({
     // addDeveloper: (state, action: PayloadAction<developer>) => {
     //   state.developers.push(action.payload);
     // },
-    getDeveloper: (state, action: PayloadAction<developer>) => {
+    currentDeveloper: (state, action: PayloadAction<developer>) => {
       state.selectedDeveloper = action.payload;
     },
     // editDeveloper: (state, action: PayloadAction<developer>) => {
@@ -95,4 +107,4 @@ export const developerSlice = createSlice({
 });
 
 export default developerSlice.reducer;
-export const { getDeveloper } = developerSlice.actions;
+export const { currentDeveloper } = developerSlice.actions;

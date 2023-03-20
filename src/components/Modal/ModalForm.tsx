@@ -38,20 +38,21 @@ function ModalForm({ captureChange, checkFormFilled }: Props) {
     Object.values(formData).every((item) => item === true)
       ? checkFormFilled(true)
       : checkFormFilled(false);
-  }, [formData]);
-  const getDeveloper = useAppSelector(
-    (state) => state.developer.selectedDeveloper
-  );
-  const modalDetails = useAppSelector((state) => state.modal);
-  const developers = useAppSelector((state) => state.developer.developers);
+  }, [checkFormFilled, formData]);
+  const getAllState = useAppSelector((state) => state);
+  // const getDeveloper = useAppSelector(
+  //   (state) => state.developer.selectedDeveloper
+  // );
+  // const modalDetails = useAppSelector((state) => state.modal);
+  // const developers = useAppSelector((state) => state.developer.developers);
 
   return (
     <div>
       <TextBox
         label="Name"
         value={
-          modalDetails.modalAction === "Edit"
-            ? (getDeveloper as developer)?.name
+          getAllState.modal.modalAction === "Edit"
+            ? (getAllState.developer.selectedDeveloper as developer)?.name
             : ""
         }
         id="name"
@@ -62,8 +63,8 @@ function ModalForm({ captureChange, checkFormFilled }: Props) {
       <TextBox
         label="email-address"
         value={
-          modalDetails.modalAction === "Edit"
-            ? (getDeveloper as developer)?.email
+          getAllState.modal.modalAction === "Edit"
+            ? (getAllState.developer.selectedDeveloper as developer)?.email
             : ""
         }
         id="email"
@@ -72,7 +73,7 @@ function ModalForm({ captureChange, checkFormFilled }: Props) {
         filledData={formData}
       />
       <SelectItem
-        menuItems={findUniqueItems(developers, "role")}
+        menuItems={getAllState.developer.roles}
         label="Role"
         id="role"
         onChangeElement={captureChange}
@@ -80,7 +81,7 @@ function ModalForm({ captureChange, checkFormFilled }: Props) {
         filledData={formData}
       />
       <SelectItem
-        menuItems={findUniqueItems(developers, "status")}
+        menuItems={getAllState.developer.status}
         label="Status"
         id="status"
         onChangeElement={captureChange}
@@ -88,7 +89,7 @@ function ModalForm({ captureChange, checkFormFilled }: Props) {
         filledData={formData}
       />
       <SelectItem
-        menuItems={findUniqueItems(developers, "team")}
+        menuItems={getAllState.developer.team}
         label="Team"
         id="team"
         onChangeElement={captureChange}

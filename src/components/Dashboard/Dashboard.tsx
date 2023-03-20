@@ -5,12 +5,17 @@ import TableHead from "../TableHead/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import { changeHeading } from "../../store/slices/modalSlice";
 import PaginationComponent from "../PaginationComponent/PaginationComponent";
-import { getDeveloper } from "../../store/slices/developerSlice";
+import { currentDeveloper } from "../../store/slices/developerSlice";
 import { getSortedArray } from "../../utils/commonUtils";
 
 function Dashboard(): JSX.Element {
-  const getAllDevelopers = useAppSelector((state) => state.developer.developers);
-  const developers = getSortedArray(getAllDevelopers)
+  const getAllDevelopers = useAppSelector(
+    (state) => state.developer.developers
+  );
+  const developers = React.useMemo(
+    () => getSortedArray(getAllDevelopers),
+    [getAllDevelopers]
+  );
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -19,14 +24,13 @@ function Dashboard(): JSX.Element {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-
   function handleModalOpen(event: React.MouseEvent<HTMLDivElement> | null) {
     const editDeveloper = event?.currentTarget.dataset.id;
     let developer = developers.find((user) => {
       return user.id === Number(editDeveloper);
     });
     dispatch(changeHeading({ heading: "Edit User", modalAction: "Edit" }));
-    developer && dispatch(getDeveloper(developer));
+    developer && dispatch(currentDeveloper(developer));
     handleOpen();
   }
 
@@ -65,14 +69,10 @@ function Dashboard(): JSX.Element {
                 key={index}
                 className="bg-white border-b dark:bg-gray-100 dark:border-gray-700"
               >
-                <td className="px-6 py-4">
-                  {tableData.name}
-                </td>
+                <td className="px-6 py-4">{tableData.name}</td>
                 <td className="px-6 py-4">{tableData.email}</td>
                 <td className="px-6 py-4">{tableData.role}</td>
-                <td className="px-6 py-4">
-                  {tableData?.status}
-                </td>
+                <td className="px-6 py-4">{tableData?.status}</td>
                 <td className="px-6 py-4">{tableData.team}</td>
                 <td className="px-6 py-4 text-right">
                   <div
