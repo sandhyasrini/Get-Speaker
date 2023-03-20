@@ -5,20 +5,24 @@ import { changeHeading } from "../../store/slices/modalSlice";
 
 interface Props {
   buttonName: string;
-  buttonType?: "text" | "outlined" | "contained" | undefined;
+  buttonStyle?: "text" | "outlined" | "contained" | undefined;
   buttonAction?: "Create" | "Edit" | "Randomize";
-  handleModalState: (e: React.MouseEvent<HTMLButtonElement>, isOpen: boolean) => void;
+  buttonType?: "InsideModal" | "OutsideModal";
+  handleModalState: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    isOpen: boolean
+  ) => void;
   modalState: boolean;
   isDisabled: boolean;
 }
 
 function Button({
   buttonName,
-  buttonType,
+  buttonStyle,
   handleModalState,
   modalState,
   buttonAction,
-  isDisabled
+  isDisabled,
 }: Props): JSX.Element {
   const dispatch = useAppDispatch();
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
@@ -31,7 +35,11 @@ function Button({
 
   return (
     <div className="px-1 h-10">
-      <MaterialButton disabled={isDisabled} onClick={handleClick} variant={buttonType}>
+      <MaterialButton
+        disabled={isDisabled}
+        onClick={handleClick}
+        variant={buttonStyle}
+      >
         {buttonName}
       </MaterialButton>
     </div>

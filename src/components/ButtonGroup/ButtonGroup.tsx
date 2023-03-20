@@ -13,25 +13,27 @@ function ButtonGroup({firstButtonName, secondButtonName}: Props) {
   const handleClose = (): void => setOpen(false);
     
   return (
-    <div className="relative mt-[6rem] flex flex-1 justify-end mx-10">
+    <section className="relative mt-[6rem] flex flex-1 justify-end mx-10">
       <Button
         buttonName={firstButtonName}
-        buttonType="outlined"
+        buttonStyle="outlined"
         handleModalState={handleOpen}
         modalState={open}
-        buttonAction="Randomize"
+        buttonAction="Randomize" 
         isDisabled={false}
+        buttonType="OutsideModal"
       />
       <Button
         buttonName={secondButtonName}
-        buttonType="contained"
+        buttonStyle="contained"
         handleModalState={handleOpen}
         modalState={open}
         buttonAction="Create"
         isDisabled={false}
+        buttonType="OutsideModal"
       />
       <OpenModal open={open} handleClose={handleClose} />
-    </div>
+    </section>
   );
 }
 

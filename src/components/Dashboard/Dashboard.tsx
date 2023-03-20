@@ -9,6 +9,7 @@ import { getDeveloper } from "../../store/slices/developerSlice";
 
 function Dashboard(): JSX.Element {
   const developers = useAppSelector((state) => state.developer.developers);
+  const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState<boolean>(false);
   const handleOpen = (): void => setOpen(true);
@@ -16,7 +17,6 @@ function Dashboard(): JSX.Element {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const dispatch = useAppDispatch();
 
   function handleModalOpen(event: React.MouseEvent<HTMLDivElement> | null) {
     const editDeveloper = event?.currentTarget.dataset.id;

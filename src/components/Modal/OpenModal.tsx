@@ -7,7 +7,7 @@ import ModalList from "./ModalList";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import Button from "../Button/Button";
 import {
-  addDeveloper,
+  addDeveloperToDatabase,
   developer,
   editDeveloper,
 } from "../../store/slices/developerSlice";
@@ -20,18 +20,15 @@ interface Props {
 
 function OpenModal({ open, handleClose }: Props): JSX.Element {
   const getAllState = useAppSelector((state) => state);
-  const [details, setDetails] = useState<developer | {}>({});
+  const [details, setDetails] = useState<developer>();
   const [formFilled, setFormFilled] = useState(false);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     setDetails(
       getAllState.modal.modalAction === "Edit" &&
-        getAllState.developer.selectedDeveloper
+        getAllState.developer.selectedDeveloper as developer
     );
-    getAllState.modal.modalAction === "Edit"
-      ? setFormFilled(true)
-      : setFormFilled(false);
   }, [getAllState]);
 
   function addDetails(
@@ -49,7 +46,7 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
     getAllState.modal.modalAction === "Edit"
       ? dispatch(editDeveloper(details as developer))
       : dispatch(
-          addDeveloper({
+          addDeveloperToDatabase({
             ...details,
             id: getAllState.developer.developers.length + 1,
           } as developer)
@@ -65,7 +62,7 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
   }
 
   return (
-    <div>
+    <section>
       <Modal
         open={open}
         onClose={handleClose}
@@ -76,7 +73,7 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {getAllState.modal.heading}
           </Typography>
-          <Typography
+          <Typography component={'div'}
             id="modal-modal-description"
             sx={{ mt: 2 }}
             className="m-10"
@@ -90,25 +87,31 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
             )}
             {getAllState.modal.modalAction === "Randomize" && <ModalList />}
           </Typography>
-          <div className="flex flex-1">
+          <section className="flex flex-1">
             <Button
               buttonName="Cancel"
               handleModalState={onCloseModal}
               modalState={open}
-              buttonType="outlined"
+              buttonStyle="outlined"
               isDisabled={false}
+              buttonType="InsideModal"
             />
             <Button
               buttonName="Done"
               handleModalState={onSubmitForm}
               modalState={open}
-              buttonType="contained"
-              isDisabled={!formFilled}
+              buttonStyle="contained"
+              isDisabled={
+                getAllState.modal.modalAction === "Randomize"
+                  ? false
+                  : !formFilled
+              }
+              buttonType="InsideModal"
             />
-          </div>
+          </section>
         </Box>
       </Modal>
-    </div>
+    </section>
   );
 }
 
