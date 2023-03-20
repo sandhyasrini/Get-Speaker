@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
 
 export interface developer {
   id: number;
@@ -14,57 +15,49 @@ export interface developerState {
   selectedDeveloper: developer | {};
 }
 
+export const getDeveloperList = createAsyncThunk(
+  "developers/getDeveloperList",
+  async () => {
+    try {
+      const { data } = await axios.get(`http://localhost:3001/`);
+      console.log("inside async thunk");
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
+export const addDeveloperToDatabase = createAsyncThunk(
+  "developer/addDeveloper",
+  async (value: developer) => {
+    try {
+      const { data } = await axios.post("http://localhost:3001/addDeveloper", {
+        value,
+      });
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
+export const editDeveloper = createAsyncThunk(
+  "developer/editDeveloper",
+  async (value: developer) => {
+    try {
+      const { data } = await axios.put("http://localhost:3001/editDeveloper", {
+        value,
+      });
+      return data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 const initialState: developerState = {
-  developers: [
-    {
-      id: 1,
-      name: "Sandhya",
-      email: "sandhya_srinivasan@outlook.com",
-      role: "Fullstack",
-      status: "Full time",
-      team: "Team A",
-    },
-    {
-      id: 2,
-      name: "Swetha",
-      email: "swethasrini02@gmail.com",
-      role: "Frontend",
-      status: "Contractor",
-      team: "Team B",
-    },
-    {
-      id: 3,
-      name: "Max",
-      email: "max.carl@beyondplay.com",
-      role: "Fullstack",
-      status: "Not available",
-      team: "Team A",
-    },
-    {
-      id: 4,
-      name: "Nitish",
-      email: "nitish.ram@outlook.com",
-      role: "Backend",
-      status: "Full time",
-      team: "Team C",
-    },
-    // {
-    //   id: 5,
-    //   name: "new user",
-    //   email: "nitish@outlook.com",
-    //   role: "Backend",
-    //   status: "Full time",
-    //   team: "Team C",
-    // },
-    // {
-    //   id: 6,
-    //   name: "Voldemort",
-    //   email: "voldemort@outlook.com",
-    //   role: "Backend",
-    //   status: "Full time",
-    //   team: "Team C",
-    // },
-  ],
+  developers: [],
   selectedDeveloper: {},
 };
 
@@ -72,22 +65,36 @@ export const developerSlice = createSlice({
   name: "developer",
   initialState,
   reducers: {
-    addDeveloper: (state, action: PayloadAction<developer>) => {
-      state.developers.push(action.payload);
-    },
+    // addDeveloper: (state, action: PayloadAction<developer>) => {
+    //   state.developers.push(action.payload);
+    // },
     getDeveloper: (state, action: PayloadAction<developer>) => {
       state.selectedDeveloper = action.payload;
     },
-    editDeveloper: (state, action: PayloadAction<developer>) => {
-      state.developers.map((element, index): void => {
-        if (element.id === action.payload.id)
-          state.developers[index] = action.payload;
-      });
-    },
+    // editDeveloper: (state, action: PayloadAction<developer>) => {
+    //   state.developers.map((element, index): void => {
+    //     if (element.id === action.payload.id)
+    //       state.developers[index] = action.payload;
+    //   });
+    // },
   },
-  //   extraReducers: (builder) => {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getDeveloperList.fulfilled, (state, action) => {
+        state.developers = [...action.payload].sort();
+      })
+      .addCase(addDeveloperToDatabase.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.developers = [...state.developers, action.payload].sort();
+      })
+      .addCase(editDeveloper.fulfilled, (state, action) => {
+        state.developers.map((element, index): void => {
+          if (element.id === action.payload.id)
+            state.developers[index] = action.payload;
+        });
+      });
+  },
 });
 
 export default developerSlice.reducer;
-export const { addDeveloper, getDeveloper, editDeveloper } =
-  developerSlice.actions;
+export const { getDeveloper } = developerSlice.actions;
