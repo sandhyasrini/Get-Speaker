@@ -11,6 +11,7 @@ import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { useAppSelector } from "../../store/store";
 import { developer } from "../../store/slices/developerSlice";
+import { FormHelperText } from "@mui/material";
 
 interface MenuItems {
   menuItems: any[];
@@ -30,10 +31,11 @@ function SelectItem({
   id,
   onChangeElement,
   checkSelected,
-  filledData
+  filledData,
 }: MenuItems): JSX.Element {
   const [dropdownValue, setDropDownValue] = useState("");
   const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState("");
 
   const developer = useAppSelector(
     (state) => state.developer.selectedDeveloper
@@ -46,22 +48,21 @@ function SelectItem({
     }
   }, [modalDetails]);
 
-  const handleChange = (event: SelectChangeEvent, label: string): void => {
-
+  const handleOnChange = (e: SelectChangeEvent, label: string) => {
+    setError(false);
+    setHelperText("");
+    setDropDownValue(e.target.value as string);
+    onChangeElement(e, label);
+    checkSelected && checkSelected({ ...filledData, [label]: true });
   };
 
   const handleOnBlur = (
-    e: SelectChangeEvent, label: string
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => {
-    // if (dropdownValue === "") {
-    //   checkSelected && checkSelected({...filledData, [label]: false});
-    //   setError(true);
-    // } else {
-      setError(false);
-      setDropDownValue(e.target.value as string);
-      onChangeElement(e, label);
-      checkSelected && checkSelected({...filledData, [label]: true});
-    // }
+    if (dropdownValue === "") {
+      setHelperText("Select a value from the dropbox");
+      setError(true);
+    }
   };
 
   return (
@@ -69,13 +70,13 @@ function SelectItem({
       <FormControl fullWidth className="my-10" size="small">
         <InputLabel id={id}>{label}</InputLabel>
         <Select
-          // onBlur={(e) => handleOnBlur(e, id)}
+          onBlur={(e) => handleOnBlur(e)}
           labelId="demo-simple-select-label"
           name={id}
           error={error}
           value={dropdownValue}
           label={label}
-          onChange={(e) => handleOnBlur(e, id)}
+          onChange={(e) => handleOnChange(e, id)}
         >
           {menuItems.map((item, index) => {
             return (
@@ -85,6 +86,7 @@ function SelectItem({
             );
           })}
         </Select>
+        <FormHelperText>{helperText}</FormHelperText>
       </FormControl>
     </div>
   );

@@ -25,21 +25,28 @@ function TextBox({
   filledData,
 }: Props) {
   const [isEmpty, setIsEmpty] = useState(false);
+  const [helperText, setHelperText] = useState("");
+
+  function onBlurEvent(e: any, label: string) {
+    if (e.nativeEvent.target.value === "") {
+      setHelperText(`Invalid  format or ${label} id not entered`);
+      setIsEmpty(true);
+    }
+  }
 
   function onChangeEvent(e: any, label: string) {
     if (
       e.nativeEvent.target.value === "" ||
       !regEx[label.toLocaleLowerCase()].test(e.nativeEvent.target.value)
     ) {
+      setHelperText(`Invalid  format or ${label} id not entered`);
       setIsEmpty(true);
       checkTextFilled && checkTextFilled({ ...filledData, [label]: false });
-
-      return;
     } else {
       setIsEmpty(false);
-      onChangeElement(e, label)
+      onChangeElement(e, label);
+      setHelperText("");
       checkTextFilled && checkTextFilled({ ...filledData, [label]: true });
-      return;
     }
   }
 
@@ -52,9 +59,10 @@ function TextBox({
           name={id}
           defaultValue={value}
           error={isEmpty}
+          helperText={helperText}
+          onBlur={(e) => onBlurEvent(e, id)}
           onChange={debounce(
-            (e: React.ChangeEvent<HTMLInputElement>) =>
-            onChangeEvent(e, id),
+            (e: React.ChangeEvent<HTMLInputElement>) => onChangeEvent(e, id),
             400
           )}
           size="small"
