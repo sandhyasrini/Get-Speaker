@@ -1,13 +1,15 @@
-export function findUniqueItems(arr: any[], searchItem: string): any[] {
+export function findUniqueItems({
+  arr,
+  searchItem,
+}: {
+  arr: any[];
+  searchItem: string;
+}): any[] {
+  if (searchItem === "All Selected") return arr;
   var unique: any[] = [];
-  var tempArr: any[] = [];
   arr.forEach((item) => {
-    if (
-      tempArr.indexOf(item[searchItem]) === -1 &&
-      item[searchItem] !== undefined
-    ) {
-      tempArr.push(item[searchItem]);
-      unique.push({ id: item.id, value: item[searchItem] });
+    if (item.role === searchItem) {
+      unique.push({ id: item.id, name: item.name });
     }
   });
   return unique;
@@ -21,22 +23,28 @@ export const debounce = (fn: Function, ms = 300) => {
   };
 };
 
-export const getRandomNames = (arr: any[], n: number): any[] => {
+export const getRandomNames = (
+  arr: any[],
+  n: number,
+  sorting_order: string
+): any[] => {
   const totalRandomValue = n;
   let uniqueRandomValue = new Set();
   while (uniqueRandomValue.size < n) {
     randomizeValues(arr, uniqueRandomValue, totalRandomValue);
   }
-  let result = shuffleValues([...uniqueRandomValue]);
+  let result = getSortedArray(
+    shuffleValues([...uniqueRandomValue], sorting_order)
+  );
   return result;
 };
 
-export const shuffleValues = (array: any[]): any[] => {
-  var copy = [].concat([...array]);
-  copy.sort(function () {
-    return 0.2 - Math.random();
-  });
-  return copy;
+export const shuffleValues = (array: any[], sorting_order: string): any[] => {
+  sorting_order === "Random" &&
+    array.sort(function () {
+      return 1 - Math.random();
+    });
+  return array;
 };
 
 const randomizeValues = (
@@ -53,10 +61,12 @@ const randomizeValues = (
 };
 
 export const getSortedArray = (arr: any[]): any[] => {
-let tempArray = [...arr]
-  tempArray.sort((a, b) => 
-  {
-  return a.name.toLocaleLowerCase().localeCompare(b.name.toLocaleLowerCase())
-})
+  let tempArray = [...arr];
+  tempArray.sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: "base" })
+  );
   return tempArray;
 };
+
+export const getSpeakerName = (length: number): number =>
+  Math.floor(Math.random() * length);

@@ -19,6 +19,7 @@ interface MenuItems {
   id: string;
   checkSelected?: Dispatch<SetStateAction<any>>;
   filledData?: {};
+  defaultValue?: string;
   onChangeElement?: (
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent | null,
     label: string
@@ -31,9 +32,12 @@ function SelectItem({
   id,
   onChangeElement,
   checkSelected,
+  defaultValue,
   filledData,
 }: MenuItems): JSX.Element {
-  const [dropdownValue, setDropDownValue] = useState("");
+  const [dropdownValue, setDropDownValue] = useState(
+    defaultValue ? defaultValue : ""
+  );
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
 

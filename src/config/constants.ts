@@ -46,3 +46,20 @@ export const defaultReduxState = {
     },
   ],
 };
+
+export const randomizerDropdown = {
+  developer: [
+    { id: 4, value: "All Selected" },
+    { id: 1, value: "Fullstack" },
+    { id: 2, value: "Frontend" },
+    { id: 3, value: "Backend" },
+  ],
+  speaker: [
+    { id: 1, value: "None" },
+    { id: 2, value: "Assign Speaker" },
+  ],
+  sorting_order: [
+    { id: 1, value: "Random" },
+    { id: 2, value: "Ascending" },
+  ],
+};

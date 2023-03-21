@@ -55,6 +55,7 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
             } as developer)
           );
     }
+    setDropdownVisibility(true)
     handleClose(isOpen);
   }
 
@@ -66,6 +67,7 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
     e: React.MouseEvent<HTMLButtonElement> | null,
     isOpen: boolean
   ) {
+    setDropdownVisibility(true)
     handleClose(isOpen);
   }
 

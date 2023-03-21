@@ -1,48 +1,44 @@
 import { SelectChangeEvent } from "@mui/material/Select";
-import React, { useState } from "react";
+import React from "react";
+import {  randomizerDropdown } from "../../config/constants";
 import Button from "../Button/Button";
 import SelectItem from "../SelectItem/SelectItem";
 
 interface Props {
   open?: boolean;
-  onChange: (e: SelectChangeEvent<string>,  label: string) => void
-  onSubmitForm: () => void
-  isDropdownVisible: boolean
- }
-
-function RandomizerForm({ open, onChange, onSubmitForm, isDropdownVisible }: Props) {
-  function handleClose() {
+  onChange: (e: SelectChangeEvent<string>, label: string) => void;
+  onSubmitForm: () => void;
+  isDropdownVisible: boolean;
 }
+
+const RandomizerForm = ({
+  open,
+  onChange,
+  onSubmitForm,
+  isDropdownVisible,
+}: Props) => {
+  function handleClose() {}
   return (
     <div>
       {isDropdownVisible && (
         <div>
           <SelectItem
-            menuItems={[
-              { id: 1, value: "FullStack" },
-              { id: 2, value: "Frontend" },
-              { id: 3, value: "Backend" },
-            ]}
+            menuItems={randomizerDropdown.developer}
+            defaultValue={randomizerDropdown.developer[0].value}
             label="Developers"
             id="developers"
             onChangeElement={onChange}
           />
           <SelectItem
-            menuItems={[
-              { id: 1, value: "FullStack" },
-              { id: 2, value: "Frontend" },
-              { id: 3, value: "Backend" },
-            ]}
+            menuItems={randomizerDropdown.sorting_order}
+            defaultValue={randomizerDropdown.sorting_order[0].value}
             label="Sorting Order"
             id="sorting_order"
             onChangeElement={onChange}
           />
           <SelectItem
-            menuItems={[
-              { id: 1, value: "FullStack" },
-              { id: 2, value: "Frontend" },
-              { id: 3, value: "Backend" },
-            ]}
+            menuItems={randomizerDropdown.speaker}
+            defaultValue={randomizerDropdown.speaker[0].value}
             label="Speaker"
             id="speaker"
             onChangeElement={onChange}
