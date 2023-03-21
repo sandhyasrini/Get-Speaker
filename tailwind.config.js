@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {},
+    fontFamily: {
+      belle: ["La Belle Aurore", "cursive"],
+      calibre: ['Calibre', 'sans-serif']
+    }
   },
   plugins: [],
 }

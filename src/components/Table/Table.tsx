@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import OpenModal from "../Modal/OpenModal";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import TableHead from "../TableHead/TableHead";
@@ -45,17 +45,17 @@ function Table(): JSX.Element {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
+  const handleChangeRowsPerPage = useCallback((
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
-  };
+  }, [setRowsPerPage]);
 
   return (
-    <div className="p-4 h-100 bg-black-100 m-5">
+    <div className="px-4 h-100 bg-black-100 m-5">
       <div className="relative overflow-x-auto">
-        <table className="w-full text-sm text-left text-gray-900 dark:text-gray-400">
+        <table className="w-full text-md text-left text-gray-900 dark:text-gray-400">
           <TableHead />
           <tbody>
             {(rowsPerPage > 0
@@ -67,7 +67,7 @@ function Table(): JSX.Element {
             ).map((tableData, index) => (
               <tr
                 key={index}
-                className="bg-white border-b dark:bg-gray-100 dark:border-gray-700"
+                className="bg-white border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-blue-300 hover:text-white"
               >
                 <td className="px-6 py-4">{tableData.name}</td>
                 <td className="px-6 py-4">{tableData.email}</td>
@@ -78,7 +78,7 @@ function Table(): JSX.Element {
                   <div
                     onClick={handleModalOpen}
                     data-id={tableData.id}
-                    className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline hover:text-white"
                   >
                     View/Edit
                   </div>

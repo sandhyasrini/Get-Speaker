@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -19,10 +19,11 @@ interface Props {
 }
 
 function OpenModal({ open, handleClose }: Props): JSX.Element {
-  const getAllState = useAppSelector((state) => state);
   const [details, setDetails] = useState<developer>();
   const [formFilled, setFormFilled] = useState(false);
   const [isDropDownVisible, setDropdownVisibility] = useState(true);
+
+    const getAllState = useAppSelector((state) => state);
 
   const dispatch = useAppDispatch();
 
@@ -33,13 +34,13 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
     );
   }, [getAllState]);
 
-  function addDetails(
+  const addDetails = useCallback((
     e: React.ChangeEvent<HTMLInputElement> | SelectChangeEvent<string> | null,
     label: string
-  ) {
+  ) => {
     e.target.value !== "" &&
       setDetails({ ...details, [e.target?.name]: e.target.value });
-  }
+  }, [details])
 
   function onSubmitForm(
     e: React.MouseEvent<HTMLButtonElement> | null,

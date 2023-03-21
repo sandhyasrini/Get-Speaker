@@ -36,6 +36,7 @@ function Button({
   return (
     <div className="px-1 h-10">
       <MaterialButton
+        className="font-calibre"
         disabled={isDisabled}
         onClick={handleClick}
         variant={buttonStyle}

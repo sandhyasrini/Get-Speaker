@@ -15,7 +15,7 @@ function Navbar() {
           <Typography
             variant="h6"
             component="div"
-            className="flex flex-1"
+            className="flex flex-1 font-calibre"
           >
             Developer Dashboard
           </Typography>

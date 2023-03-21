@@ -13,7 +13,7 @@ function Dashboard() {
       {!state.developer.isError && (state.developer.isLoading ? (
         <div className="w-[100%] h-[100vh] fixed z-1 bg-[rgba(0, 0, 0, 0.834)] justify-center left-[50%] top-[50%] font-bold text-2xl">Loading...</div>
       ) : (
-        <div>
+        <div className="font-calibre">
           <Navbar />
           <ButtonGroup
             firstButtonName="Name Randomizer"
