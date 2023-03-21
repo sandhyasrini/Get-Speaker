@@ -1,46 +1,122 @@
-# Getting Started with Create React App
+# Beyondplay coding challenge
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Features
+ - Display a table with details of developers
+ - Ability to create a new User
+ - Ability to Edit existing User
+ - Generate a Random list for the intervention with a designated speaker
+ - Generate an alphabetised list of speakers with a designated speaker
+ - Pagination  for the table component
+ 
+ ## Stacks used
+ * Language: Typescript
+ * Frontend development Library: ReactJS 18
+ * State container: Redux, Redux Toolkit
+ * CSS: Tailwind CSS
+ * HTTP Client: Axios
+ * Backend development Library: Node.js
+ * ORM: Prisma
+ * Database: Postgres
+ * Web application framework: Express JS
+ 
+ ## Prerequisites
+ 
+ |Prerequisite                               |Link                                                                   |
+|-------------------------------------------|-----------------------------------------------------------------------|
+|Git                                        |[🔗](https://git-scm.com/downloads)                                   |
+|Node 16                                    |[🔗](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)                                          |
+| Yarn                                      |[🔗](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)|
+| MongoDB*                                   |[🔗](https://www.postgresql.org/download/)               |
+| Docker*                                   |[🔗](https://www.docker.com/)                                         |
 
-In the project directory, you can run:
+ *You can have postgres either installed in your system or running in docker
+ 
+ ## Setup
+ 
+### Frontend
 
-### `npm start`
+Install dependencies:
+```
+npm install
+```
+or
+```
+yarn install
+```
+Run the frontend:
+```
+npm run start
+```
+or
+```
+yarn start
+```
+### Backend
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Install dependencies:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Clone the git repository:
+https://github.com/sandhyasrini/Beyondplay-intervention-randomizer-api
+```
+npm install
+```
+or
+```
+yarn install
+```
+Run the backend
+```
+npm run serve
+ ```
+ or
+```
+yarn serve
+```
 
-### `npm test`
+### Database
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* If you have docker setup in your machine, you can follow the below steps to setup DB for the Application
 
-### `npm run build`
+Go to the API Project folder cloned in your local system
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Build docker Image for Postgres:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+docker build -t my-postgres-db ./ --no-cache
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Check if image built:
 
-### `npm run eject`
+```
+docker images
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+eg:
+```
+$ docker images -a
+REPOSITORY       TAG       IMAGE ID       CREATED        SIZE
+my-postgres-db   latest    38036a25ec7b   13 hours ago   379MB
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Run the image as a container:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+docker run -d --name my-postgresdb-container -p 5432:5432 my-postgres-db
+```
+Make sure the beyond_play.sql file is present in the folder before running the container. This file creates the DB required for the application.
 
-## Learn More
+* If you have Postgres installed in your local system, create a Database called 
+beyond_play and run the beyond_play.sql in postgres to create the DB and inject data.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+In the .env file, add your Database URL:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+DATABASE_URL="postgres://{username}:{password}@localhost:5432/beyond_play"
+```
+
+
+
+
