@@ -38,7 +38,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Frontend
 
 Install dependencies:
+
+Clone this github repository: https://github.com/sandhyasrini/Beyondplay-coding-challenge
 ```
+cd Beyondplay-coding-challenge
 npm install
 ```
 or
@@ -60,6 +63,7 @@ Install dependencies:
 Clone the git repository:
 https://github.com/sandhyasrini/Beyondplay-intervention-randomizer-api
 ```
+cd Beyondplay-intervention-randomizer-api
 npm install
 ```
 or
