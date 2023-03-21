@@ -126,7 +126,7 @@ If you're running in docker, the default username would be postgres unless speci
 
 ## Todos/Future Scope:
 
-There were some things that will be implemented in the future, which cannot be done now due to time constraint.
+There are some functionalities, updates that can be implemented in the future, as scope for improvement, which was not done now due to time constraint.
 
 * Unit Testing
 * E2E testing using Cypress
