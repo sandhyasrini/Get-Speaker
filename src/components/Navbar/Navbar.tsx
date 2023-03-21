@@ -20,9 +20,6 @@ function Navbar() {
             Developer Dashboard
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Search />
-        </IconButton>
           </Box>
         </Toolbar>
       </AppBar>

@@ -1,9 +1,7 @@
 import React from "react";
-import Dashboard from "../../components/Dashboard/Dashboard";
-import Navbar from "../../components/Navbar/Navbar";
-import ButtonGroup from "../../components/ButtonGroup/ButtonGroup";
 import { useAppDispatch } from "../../store/store";
-import { getDeveloperList } from "../../store/slices/developerSlice";
+import { getDeveloperList } from "../../store/actions/developerAction"; 
+import Dashboard from "../../components/Dashboard/Dashboard";
 
 function Landing() {
   const dispatch = useAppDispatch();
@@ -11,11 +9,6 @@ function Landing() {
   dispatch(getDeveloperList());
   return (
     <section>
-      <Navbar />
-      <ButtonGroup
-        firstButtonName="Name Randomizer"
-        secondButtonName="Create New User"
-      />
       <Dashboard />
     </section>
   );

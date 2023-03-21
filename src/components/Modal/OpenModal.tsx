@@ -6,11 +6,11 @@ import ModalForm from "./ModalForm";
 import ModalList from "./ModalList";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import Button from "../Button/Button";
+import { developer } from "../../store/slices/developerSlice";
 import {
   addDeveloperToDatabase,
-  developer,
   editDeveloper,
-} from "../../store/slices/developerSlice";
+} from "../../store/actions/developerAction";
 import { SelectChangeEvent } from "@mui/material/Select";
 
 interface Props {
@@ -102,30 +102,31 @@ function OpenModal({ open, handleClose }: Props): JSX.Element {
             )}
           </Typography>
           {(getAllState.modal.modalAction === "Edit" ||
-            getAllState.modal.modalAction === "Create" || !isDropDownVisible) && (
-              <section className="flex flex-1">
-                <Button
-                  buttonName="Cancel"
-                  handleModalState={onCloseModal}
-                  modalState={open}
-                  buttonStyle="outlined"
-                  isDisabled={false}
-                  buttonType="InsideModal"
-                />
-                <Button
-                  buttonName="Done"
-                  handleModalState={onSubmitForm}
-                  modalState={open}
-                  buttonStyle="contained"
-                  isDisabled={
-                    getAllState.modal.modalAction === "Randomize"
-                      ? false
-                      : !formFilled
-                  }
-                  buttonType="InsideModal"
-                />
-              </section>
-            )}
+            getAllState.modal.modalAction === "Create" ||
+            !isDropDownVisible) && (
+            <section className="flex flex-1">
+              <Button
+                buttonName="Cancel"
+                handleModalState={onCloseModal}
+                modalState={open}
+                buttonStyle="outlined"
+                isDisabled={false}
+                buttonType="InsideModal"
+              />
+              <Button
+                buttonName="Done"
+                handleModalState={onSubmitForm}
+                modalState={open}
+                buttonStyle="contained"
+                isDisabled={
+                  getAllState.modal.modalAction === "Randomize"
+                    ? false
+                    : !formFilled
+                }
+                buttonType="InsideModal"
+              />
+            </section>
+          )}
         </Box>
       </Modal>
     </section>
