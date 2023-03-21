@@ -38,7 +38,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Frontend
 
 Install dependencies:
+
+Clone this github repository: https://github.com/sandhyasrini/Beyondplay-coding-challenge
 ```
+cd Beyondplay-coding-challenge
 npm install
 ```
 or
@@ -60,6 +63,7 @@ Install dependencies:
 Clone the git repository:
 https://github.com/sandhyasrini/Beyondplay-intervention-randomizer-api
 ```
+cd Beyondplay-intervention-randomizer-api
 npm install
 ```
 or
@@ -104,7 +108,7 @@ my-postgres-db   latest    38036a25ec7b   13 hours ago   379MB
 Run the image as a container:
 
 ```
-docker run -d --name my-postgresdb-container -p 5432:5432 my-postgres-db
+docker run -d --name my-postgresdb-container -p 5432:5432 -e POSTGRES_PASSWORD={password} my-postgres-db
 ```
 Make sure the beyond_play.sql file is present in the folder before running the container. This file creates the DB required for the application.
 
@@ -116,6 +120,9 @@ In the .env file, add your Database URL:
 ```
 DATABASE_URL="postgres://{username}:{password}@localhost:5432/beyond_play"
 ```
+If you're running in docker, the default username would be postgres unless specified otherwise
+
+
 
 
 
