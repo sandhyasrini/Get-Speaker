@@ -31,6 +31,92 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 | MongoDB*                                   |[🔗](https://www.postgresql.org/download/)               |
 | Docker*                                   |[🔗](https://www.docker.com/)                                         |
 
- * You can have postgres either installed in your system or running in docker
+ *You can have postgres either installed in your system or running in docker
  
+ ## Setup
  
+### Frontend
+
+Install dependencies:
+```
+npm install
+```
+or
+```
+yarn install
+```
+Run the frontend:
+```
+npm run start
+```
+or
+```
+yarn start
+```
+### Backend
+
+Install dependencies:
+
+Clone the git repository:
+https://github.com/sandhyasrini/Beyondplay-intervention-randomizer-api
+```
+npm install
+```
+or
+```
+yarn install
+```
+Run the backend
+```
+npm run serve
+ ```
+ or
+```
+yarn serve
+```
+
+### Database
+
+* If you have docker setup in your machine, you can follow the below steps to setup DB for the Application
+
+Go to the API Project folder cloned in your local system
+
+Build docker Image for Postgres:
+
+```
+docker build -t my-postgres-db ./ --no-cache
+```
+
+Check if image built:
+
+```
+docker images
+```
+
+eg:
+```
+$ docker images -a
+REPOSITORY       TAG       IMAGE ID       CREATED        SIZE
+my-postgres-db   latest    38036a25ec7b   13 hours ago   379MB
+
+```
+
+Run the image as a container:
+
+```
+docker run -d --name my-postgresdb-container -p 5432:5432 my-postgres-db
+```
+Make sure the beyond_play.sql file is present in the folder before running the container. This file creates the DB required for the application.
+
+* If you have Postgres installed in your local system, create a Database called 
+beyond_play and run the beyond_play.sql in postgres to create the DB and inject data.
+
+In the .env file, add your Database URL:
+
+```
+DATABASE_URL="postgres://{username}:{password}@localhost:5432/beyond_play"
+```
+
+
+
+
