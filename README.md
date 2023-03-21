@@ -21,5 +21,16 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  * Database: Postgres
  * Web application framework: Express JS
  
+ ## Prerequisites
+ 
+ |Prerequisite                               |Link                                                                   |
+|-------------------------------------------|-----------------------------------------------------------------------|
+|Git                                        |[🔗](https://git-scm.com/downloads)                                   |
+|Node 16                                    |[🔗](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)                                          |
+| Yarn                                      |[🔗](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)|
+| MongoDB*                                   |[🔗](https://www.postgresql.org/download/)               |
+| Docker*                                   |[🔗](https://www.docker.com/)                                         |
+
+ * You can have postgres either installed in your system or running in docker
  
  
