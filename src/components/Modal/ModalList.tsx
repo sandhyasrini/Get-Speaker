@@ -33,7 +33,7 @@ function ModalList({ onSubmitForm, isDropdownVisible }: Props) {
     const sortedList = 
       getSelectedDevelopers.length > 5
         ? getRandomNames(getSelectedDevelopers, 5, dropDownData.sorting_order)
-        : shuffleValues(getSelectedDevelopers, dropDownData.sorting_order)
+        : getRandomNames(getSelectedDevelopers, getSelectedDevelopers.length, dropDownData.sorting_order)
         setDeveloperList(sortedList)
 
   }, [developers, dropDownData]);

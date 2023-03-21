@@ -33,9 +33,10 @@ export const getRandomNames = (
   while (uniqueRandomValue.size < n) {
     randomizeValues(arr, uniqueRandomValue, totalRandomValue);
   }
-  let result = getSortedArray(
-    shuffleValues([...uniqueRandomValue], sorting_order)
-  );
+  let result =
+    sorting_order !== "Random"
+      ? getSortedArray(shuffleValues([...uniqueRandomValue], sorting_order))
+      : [...uniqueRandomValue];
   return result;
 };
 
