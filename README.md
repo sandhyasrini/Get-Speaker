@@ -11,15 +11,15 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
  - Pagination  for the table component
  
  ## Stacks used
- Language: Typescript
- Frontend development Library: ReactJS 18
- State container: Redux, Redux Toolkit
- CSS: Tailwind CSS
- HTTP Client: Axios
- Backend development Library: Node.js
- ORM: Prisma
- Database: Postgres
- Web application framework: Express JS
+ * Language: Typescript
+ * Frontend development Library: ReactJS 18
+ * State container: Redux, Redux Toolkit
+ * CSS: Tailwind CSS
+ * HTTP Client: Axios
+ * Backend development Library: Node.js
+ * ORM: Prisma
+ * Database: Postgres
+ * Web application framework: Express JS
  
  
  
