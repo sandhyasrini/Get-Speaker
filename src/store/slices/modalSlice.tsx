@@ -1,26 +1,25 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 
 export interface ModalHeading {
-  heading: string;
-  modalAction: "Create" | "Edit" | "Randomize" ;
+  heading: string
+  modalAction: 'Create' | 'Edit' | 'Randomize'
 }
 
-
 const initialState = {
-  heading: "",
-  modalAction: "Create",
-};
+  heading: '',
+  modalAction: 'Create'
+}
 
 export const modalSlice = createSlice({
-  name: "modal",
+  name: 'modal',
   initialState,
   reducers: {
     changeHeading: (state, action: PayloadAction<ModalHeading>) => {
-      state.heading = action.payload.heading;
-      state.modalAction = action.payload.modalAction;
-    },
-  },
-});
+      state.heading = action.payload.heading
+      state.modalAction = action.payload.modalAction
+    }
+  }
+})
 
-export default modalSlice.reducer;
-export const { changeHeading } = modalSlice.actions;
+export default modalSlice.reducer
+export const { changeHeading } = modalSlice.actions
