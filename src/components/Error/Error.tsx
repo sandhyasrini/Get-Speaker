@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Error() {
+function Error () {
   return (
     <div>Error Occured in our servers</div>
   )

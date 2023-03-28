@@ -1,40 +1,43 @@
-import React, { useState } from "react";
-import Button from "../Button/Button";
-import OpenModal from "../Modal/OpenModal";
+import React, { useState } from 'react'
+import Button from '../Button/Button'
+import MemoizedModal from '../Modal/OpenModal'
 
 interface Props {
-    firstButtonName: string
-    secondButtonName: string
+  firstButtonName: string
+  secondButtonName: string
 }
 
-function ButtonGroup({firstButtonName, secondButtonName}: Props) {
-  const [open, setOpen] = useState<boolean>(false);
-  const handleOpen = (): void => setOpen(true);
-  const handleClose = (): void => setOpen(false);
-    
+function ButtonGroup ({ firstButtonName, secondButtonName }: Props): JSX.Element {
+  console.log("OpenModal Rerenders because of meeee")
+  const [open, setOpen] = useState<boolean>(false)
+  const handleOpen = (): void => { setOpen(true) }
+  const handleClose = (): void => { setOpen(false) }
+
+  
   return (
-    <section className="relative mt-[6rem] flex flex-1 justify-end mx-10 font-calibre">
+    <section className='relative mt-[6rem] flex flex-1 justify-end mx-10 font-calibre'>
       <Button
         buttonName={firstButtonName}
-        buttonStyle="outlined"
+        buttonStyle='outlined'
         handleModalState={handleOpen}
         modalState={open}
-        buttonAction="Randomize" 
+        buttonAction='Randomize'
         isDisabled={false}
-        buttonType="OutsideModal"
+        buttonType='OutsideModal'
       />
       <Button
         buttonName={secondButtonName}
-        buttonStyle="contained"
+        buttonStyle='contained'
         handleModalState={handleOpen}
         modalState={open}
-        buttonAction="Create"
+        buttonAction='Create'
         isDisabled={false}
-        buttonType="OutsideModal"
+        buttonType='OutsideModal'
       />
-      <OpenModal open={open} handleClose={handleClose} />
+      {open && <MemoizedModal open={open} handleClose={handleClose} />}
     </section>
-  );
+  )
 }
+const MemoizedButtonGroup = React.memo(ButtonGroup)
 
-export default ButtonGroup;
+export default MemoizedButtonGroup

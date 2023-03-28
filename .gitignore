@@ -7,9 +7,13 @@
 
 # testing
 /coverage
+.scannerwork
 
 # production
 /build
+
+#IDE
+.vscode/
 
 # misc
 .DS_Store

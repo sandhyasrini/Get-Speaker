@@ -1,14 +1,18 @@
-import { SelectChangeEvent } from "@mui/material/Select";
-import React from "react";
-import {  randomizerDropdown } from "../../config/constants";
-import Button from "../Button/Button";
-import SelectItem from "../SelectItem/SelectItem";
+import { type SelectChangeEvent } from '@mui/material/Select'
+import React from 'react'
+import { randomizerDropdown } from '../../config/constants'
+import Button from '../Button/Button'
+import SelectItem from '../SelectItem/SelectItem'
 
 interface Props {
-  open?: boolean;
-  onChange: (e: SelectChangeEvent<string>, label: string) => void;
-  onSubmitForm: () => void;
-  isDropdownVisible: boolean;
+  open?: boolean
+  onChange: (e: SelectChangeEvent<string>, label: string) => void
+  onSubmitForm: () => void
+  isDropdownVisible: boolean
+  handleModalState: (
+    e: React.MouseEvent<HTMLButtonElement>,
+    isOpen: boolean
+  ) => void
 }
 
 const RandomizerForm = ({
@@ -16,8 +20,11 @@ const RandomizerForm = ({
   onChange,
   onSubmitForm,
   isDropdownVisible,
-}: Props) => {
-  function handleClose() {}
+  handleModalState
+}: Props): JSX.Element => {
+  function handleClose (e): void {
+    handleModalState(e, !open)
+  }
   return (
     <div>
       {isDropdownVisible && (
@@ -25,46 +32,46 @@ const RandomizerForm = ({
           <SelectItem
             menuItems={randomizerDropdown.developer}
             defaultValue={randomizerDropdown.developer[0].value}
-            label="Developers"
-            id="developers"
+            label='Developers'
+            id='developers'
             onChangeElement={onChange}
           />
           <SelectItem
             menuItems={randomizerDropdown.sorting_order}
             defaultValue={randomizerDropdown.sorting_order[0].value}
-            label="Sorting Order"
-            id="sorting_order"
+            label='Sorting Order'
+            id='sorting_order'
             onChangeElement={onChange}
           />
           <SelectItem
             menuItems={randomizerDropdown.speaker}
             defaultValue={randomizerDropdown.speaker[0].value}
-            label="Speaker"
-            id="speaker"
+            label='Speaker'
+            id='speaker'
             onChangeElement={onChange}
           />
-          <div className="flex flex-1">
+          <div className='flex flex-1'>
             <Button
-              buttonName="Cancel"
+              buttonName='Cancel'
               handleModalState={handleClose}
               modalState={open}
-              buttonStyle="outlined"
+              buttonStyle='outlined'
               isDisabled={false}
-              buttonType="InsideModal"
+              buttonType='InsideModal'
             />
             <Button
-              buttonName="Done"
+              buttonName='Done'
               handleModalState={onSubmitForm}
               modalState={open}
-              buttonStyle="contained"
+              buttonStyle='contained'
               isDisabled={false}
-              buttonType="InsideModal"
+              buttonType='InsideModal'
             />
           </div>
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default RandomizerForm;
+export default RandomizerForm

@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react'
 
-function TableHead() {
+function Heading (): JSX.Element {
+  console.log('table head getting loaded')
   return (
     <thead className="text-sm text-gray-900 uppercase bg-gray-200  dark:text-gray-400">
       <tr>
@@ -24,7 +25,7 @@ function TableHead() {
         </th>
       </tr>
     </thead>
-  );
+  )
 }
-
-export default TableHead;
+const TableHead = React.memo(Heading)
+export default TableHead

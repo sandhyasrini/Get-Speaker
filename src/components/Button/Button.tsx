@@ -1,50 +1,53 @@
-import React from "react";
-import MaterialButton from "@mui/material/Button";
-import { useAppDispatch } from "../../store/store";
-import { changeHeading } from "../../store/slices/modalSlice";
+import React from 'react'
+import MaterialButton from '@mui/material/Button'
+import { useAppDispatch } from '../../store/store'
+import { changeHeading } from '../../store/slices/modalSlice'
 
 interface Props {
-  buttonName: string;
-  buttonStyle?: "text" | "outlined" | "contained" | undefined;
-  buttonAction?: "Create" | "Edit" | "Randomize";
-  buttonType?: "InsideModal" | "OutsideModal";
+  buttonName: string
+  buttonStyle?: 'text' | 'outlined' | 'contained' | undefined
+  buttonAction?: 'Create' | 'Edit' | 'Randomize'
+  buttonType?: 'InsideModal' | 'OutsideModal'
   handleModalState: (
     e: React.MouseEvent<HTMLButtonElement>,
     isOpen: boolean
-  ) => void;
-  modalState: boolean;
-  isDisabled: boolean;
+  ) => void
+  modalState: boolean
+  isDisabled: boolean
 }
 
-function Button({
+function Button ({
   buttonName,
   buttonStyle,
   handleModalState,
   modalState,
   buttonAction,
-  isDisabled,
+  isDisabled
 }: Props): JSX.Element {
-  const dispatch = useAppDispatch();
-  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    buttonAction &&
+  const dispatch = useAppDispatch()
+  function handleClick (e: React.MouseEvent<HTMLButtonElement>): void {
+    (buttonAction !== undefined) &&
       dispatch(
         changeHeading({ heading: buttonName, modalAction: buttonAction })
-      );
-    handleModalState(e, !modalState);
+      )
+    handleModalState(e, !modalState)
   }
 
   return (
-    <div className="px-1 h-10">
+    <div className='px-1'>
       <MaterialButton
-        className="font-calibre"
+        className='font-calibre'
         disabled={isDisabled}
         onClick={handleClick}
         variant={buttonStyle}
+        disableRipple
       >
         {buttonName}
       </MaterialButton>
     </div>
-  );
+  )
 }
 
-export default Button;
+const MemoizedButton = React.memo(Button)
+
+export default MemoizedButton
