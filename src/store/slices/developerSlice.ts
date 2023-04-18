@@ -37,7 +37,7 @@ const initialState: developerState = {
   team: defaultReduxState.team,
   status: defaultReduxState.status,
   isLoading: false,
-  isError: false,
+  isError: false
 }
 
 export const developerSlice = createSlice({
@@ -46,7 +46,7 @@ export const developerSlice = createSlice({
   reducers: {
     currentDeveloper: (state, action: PayloadAction<developer>) => {
       state.selectedDeveloper = action.payload
-    },
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getDeveloperList.pending, (state, action) => {

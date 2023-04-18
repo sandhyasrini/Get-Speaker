@@ -1,9 +1,86 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import App from './App'
+import { renderWithProviders } from './utils/testUtil'
+import { rest } from 'msw'
+import { setupServer } from 'msw/node'
 
-test('renders learn react link', () => {
-  render(<App />)
-  const linkElement = screen.getByText(/learn react/i)
-  expect(linkElement).toBeInTheDocument()
+const data = {
+  developers: [
+    {
+      id: 2,
+      name: 'Harry Potter',
+      email: 'harry@chosenone.com',
+      role: 'Backend',
+      status: 'Full Time',
+      team: 'Team G'
+    },
+    {
+      id: 1,
+      name: 'Albus Dumbledore',
+      email: 'hogwarts.headmaster@gryffindor.com',
+      role: 'Fullstack',
+      status: 'Not available',
+      team: 'Team G'
+    },
+    {
+      id: 3,
+      name: 'Tom Riddle',
+      email: 'thedarklord@horcrux.com',
+      role: 'Frontend',
+      status: 'Contractor',
+      team: 'Team S'
+    },
+    {
+      id: 4,
+      name: 'Luna Lovegood',
+      email: 'blibbering_humdinger@dumbledorearmy.com',
+      role: 'Fullstack',
+      status: 'Full Time',
+      team: 'Team R'
+    }
+  ]
+}
+export const handlers = [
+  rest.get('http://localhost:3001/api/v1/getDevelopers', async (req, res, ctx) => {
+    return await res(ctx.json(data), ctx.delay(150))
+  })
+]
+
+const server = setupServer(...handlers)
+
+// Enable API mocking before tests.
+beforeAll(() => {
+  server.listen()
+})
+
+// Reset any runtime request handlers we may add during the tests.
+afterEach(() => {
+  server.resetHandlers()
+})
+
+// Disable API mocking after the tests are done.
+afterAll(() => {
+  server.close()
+})
+
+it('renders Loading page when fetching data from API', () => {
+  renderWithProviders(<App />, {
+    preloadedState: {
+      developer: {
+        isError: false,
+        isLoading: true
+      },
+      modal: {}
+    }
+  })
+  expect(screen.getByText(/Loading.../i)).toBeInTheDocument()
+})
+
+it('renders dashboard', async () => {
+  renderWithProviders(<App />, {
+    preloadedState: {
+    }
+  })
+  expect(await screen.findByText(/Developer Dashboard/i)).toBeInTheDocument()
 })

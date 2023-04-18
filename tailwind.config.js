@@ -2,14 +2,14 @@
 module.exports = {
   darkMode: 'class',
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    './src/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
     extend: {},
     fontFamily: {
-      belle: ["La Belle Aurore", "cursive"],
+      belle: ['La Belle Aurore', 'cursive'],
       calibre: ['Calibre', 'sans-serif']
     }
   },
-  plugins: [],
+  plugins: []
 }

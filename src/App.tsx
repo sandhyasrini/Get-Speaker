@@ -24,7 +24,7 @@ function App (): JSX.Element {
   )
 }
 
-const AppWrapper = () => (
+const AppWrapper = (): JSX.Element => (
   <Provider store={store}>
     <App />
   </Provider>

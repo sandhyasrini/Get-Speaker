@@ -8,12 +8,12 @@ interface Props {
   buttonStyle?: 'text' | 'outlined' | 'contained' | undefined
   buttonAction?: 'Create' | 'Edit' | 'Randomize'
   buttonType?: 'InsideModal' | 'OutsideModal'
-  handleModalState: (
+  handleModalState?: (
     e: React.MouseEvent<HTMLButtonElement>,
     isOpen: boolean
   ) => void
-  modalState: boolean
-  isDisabled: boolean
+  modalState?: boolean
+  isDisabled?: boolean
 }
 
 function Button ({

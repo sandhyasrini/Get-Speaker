@@ -6,12 +6,12 @@ import Navbar from '../Navbar/Navbar'
 import Table from '../Table/Table'
 
 function Dashboard (): JSX.Element {
-  console.log('I am the dashboard')
   const state = useAppSelector((state) => state)
   return (
     <div>
         {state.developer.isError && <Error />}
-      {!state.developer.isError && (!state.developer.isLoading && (
+      {!state.developer.isError && (!state.developer.isLoading
+        ? (
           <div className='font-calibre'>
           <Navbar />
           <ButtonGroup
@@ -19,7 +19,8 @@ function Dashboard (): JSX.Element {
             secondButtonName='Create New User'
           />
           <Table />
-        </div>))}
+        </div>)
+        : <div>{'Loading...'}</div>)}
     </div>
   )
 }

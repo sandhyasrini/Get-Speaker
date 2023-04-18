@@ -8,7 +8,6 @@ interface Props {
 }
 
 function ButtonGroup ({ firstButtonName, secondButtonName }: Props): JSX.Element {
-  console.log("OpenModal Rerenders because of meeee")
   const [open, setOpen] = useState<boolean>(false)
   const handleOpen = (): void => { setOpen(true) }
   const handleClose = (): void => { setOpen(false) }

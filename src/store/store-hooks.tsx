@@ -1,24 +1,13 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { createSelector } from 'reselect'
+import { configureStore, createSelector } from '@reduxjs/toolkit'
 import { developerSlice } from './slices/developerSlice'
 import { modalSlice } from './slices/modalSlice'
+import { type store } from './store'
 import type { PreloadedState } from '@reduxjs/toolkit'
 import {
   useDispatch,
   type TypedUseSelectorHook,
   useSelector
 } from 'react-redux'
-
-export function createStore (): any {
-  return configureStore({
-    reducer: {
-      developer: developerSlice.reducer,
-      modal: modalSlice.reducer
-    }
-  })
-}
-
-export const store = createStore()
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>): any => {
   return configureStore({
@@ -29,9 +18,11 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>): any => {
     preloadedState
   })
 }
-export type RootState = ReturnType<typeof store.getState>
+
 export type AppStore = ReturnType<typeof setupStore>
 type DispatchType = typeof store.dispatch
+export type RootState = ReturnType<typeof store.getState>
+
 export const useAppDispatch: () => DispatchType = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 const getModal = (state: { modal: any }): any => state.modal
