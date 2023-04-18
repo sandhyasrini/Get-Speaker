@@ -129,9 +129,8 @@ The UI can be accessed in http://localhost:3000
 
 ## Todos/Future Scope:
 
-There are some functionalities, updates that can be implemented in the future, as scope for improvement, which was not done now due to time constraint.
+WIP: There are some functionalities, updates that are being implemented.
 
-* Unit Testing
 * E2E testing using Cypress
 * Authentication/Authorisation
 * Ability to search and find individual user
