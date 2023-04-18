@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { defaultReduxState } from '../../config/constants'
 import {
   addDeveloperToDatabase,
