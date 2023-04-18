@@ -53,8 +53,13 @@ export const developerSlice = createSlice({
       state.isLoading = true
     })
     builder.addCase(getDeveloperList.fulfilled, (state, action) => {
-      state.developers = [...action.payload.developers]
-      state.isLoading = false
+      if (!action.payload.message) {
+        state.developers = [...action.payload.developers]
+        state.isLoading = false
+      } else {
+        state.isLoading = false
+        state.isError = true
+      }
     })
     builder.addCase(getDeveloperList.rejected, (state, action) => {
       state.isLoading = false

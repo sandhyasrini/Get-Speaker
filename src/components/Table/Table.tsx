@@ -9,7 +9,6 @@ import { currentDeveloper } from '../../store/slices/developerSlice'
 import { getSortedArray } from '../../utils/commonUtils'
 
 function Table (): JSX.Element {
-  console.log('table rendering...')
   const getAllDevelopers = useAppSelector((state) => state.developer.developers)
   const developers = React.useMemo(
     () => getSortedArray(getAllDevelopers),
@@ -62,7 +61,7 @@ function Table (): JSX.Element {
     <div className='px-4 h-100 bg-black-100 m-5'>
       <div className='relative overflow-x-auto'>
         {
-          developers 
+          developers
             ? (<table className='w-full text-md text-left text-gray-900 dark:text-gray-400'>
                 <TableHead />
                 <tbody>

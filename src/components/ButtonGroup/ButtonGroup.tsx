@@ -12,7 +12,6 @@ function ButtonGroup ({ firstButtonName, secondButtonName }: Props): JSX.Element
   const handleOpen = (): void => { setOpen(true) }
   const handleClose = (): void => { setOpen(false) }
 
-  
   return (
     <section className='relative mt-[6rem] flex flex-1 justify-end mx-10 font-calibre'>
       <Button

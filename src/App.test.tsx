@@ -42,10 +42,19 @@ const data = {
   ]
 }
 export const handlers = [
-  rest.get('http://localhost:3001/api/v1/getDevelopers', async (req, res, ctx) => {
-    return await res(ctx.json(data), ctx.delay(150))
-  })
+  rest.get(
+    'http://localhost:3001/api/v1/getDevelopers',
+    async (req, res, ctx) => {
+      return await res(ctx.json(data), ctx.delay(150))
+    }
+  )
 ]
+
+export const tasksHandlerException = rest.get(
+  'http://localhost:3001/api/v1/getDevelopers',
+  async (req, res, ctx) =>
+    await res(ctx.status(500), ctx.json({ message: 'Not Found' }))
+)
 
 const server = setupServer(...handlers)
 
@@ -77,10 +86,24 @@ it('renders Loading page when fetching data from API', () => {
   expect(screen.getByText(/Loading.../i)).toBeInTheDocument()
 })
 
-it('renders dashboard', async () => {
+it('renders dashboard after fetching data', async () => {
+  server.use(...handlers)
   renderWithProviders(<App />, {
-    preloadedState: {
-    }
+    preloadedState: {}
   })
   expect(await screen.findByText(/Developer Dashboard/i)).toBeInTheDocument()
+})
+
+it('renders Error page when fetching data from API failed', async () => {
+  server.use(tasksHandlerException)
+  renderWithProviders(<App />, {
+    preloadedState: {
+      developer: {
+        isError: true,
+        isLoading: false
+      },
+      modal: {}
+    }
+  })
+  expect(await screen.findByText(/Error Occured in our servers/i)).toBeInTheDocument()
 })
