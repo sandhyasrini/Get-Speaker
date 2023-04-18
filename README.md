@@ -39,9 +39,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Install dependencies:
 
-Clone this github repository: https://github.com/sandhyasrini/Beyondplay-coding-challenge
+Clone this github repository: https://github.com/sandhyasrini/Intervention-Randomizer-UI
 ```
-cd Beyondplay-coding-challenge
+cd Intervention-Randomizer-UI
 npm install
 ```
 or
