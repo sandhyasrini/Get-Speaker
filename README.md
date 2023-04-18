@@ -126,10 +126,24 @@ If you're running in docker, the default username would be postgres unless speci
 
 The UI can be accessed in http://localhost:3000
 
+## Test cases
 
-## Todos/Future Scope:
+To run the test cases locally,
 
-WIP: There are some functionalities, updates that are being implemented.
+```
+npm run test
+```
+
+And for the code coverage
+
+```
+npm run coverage
+```
+
+
+## Todos / WIP:
+
+These are some functionalities, updates that are being implemented.
 
 * E2E testing using Cypress
 * Authentication/Authorisation
