@@ -83,7 +83,7 @@ it('renders Loading page when fetching data from API', () => {
       modal: {}
     }
   })
-  expect(screen.getByText(/Loading.../i)).toBeInTheDocument()
+  expect(screen.getByText(/Loading.../i)).toBeTruthy()
 })
 
 it('renders dashboard after fetching data', async () => {
@@ -91,7 +91,7 @@ it('renders dashboard after fetching data', async () => {
   renderWithProviders(<App />, {
     preloadedState: {}
   })
-  expect(await screen.findByText(/Developer Dashboard/i)).toBeInTheDocument()
+  expect(await screen.findByText(/Developer Dashboard/i)).toBeTruthy()
 })
 
 it('renders Error page when fetching data from API failed', async () => {
@@ -105,5 +105,5 @@ it('renders Error page when fetching data from API failed', async () => {
       modal: {}
     }
   })
-  expect(await screen.findByText(/Error Occured in our servers/i)).toBeInTheDocument()
+  expect(await screen.findByText(/Error Occured in our servers/i)).toBeTruthy()
 })

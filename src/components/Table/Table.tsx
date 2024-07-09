@@ -76,11 +76,8 @@ function Table (): JSX.Element {
                       key={index}
                       className='bg-white border-b dark:bg-gray-100 dark:border-gray-700 hover:bg-blue-300 hover:text-white'
                     >
-                      <td className='px-6 py-4'>{tableData.name}</td>
-                      <td className='px-6 py-4'>{tableData.email}</td>
-                      <td className='px-6 py-4'>{tableData.role}</td>
-                      <td className='px-6 py-4'>{tableData?.status}</td>
-                      <td className='px-6 py-4'>{tableData.team}</td>
+                      {Object.keys(tableData).filter((data) => data !== 'id').map((data) => {return <td className='px-6 py-4'>{tableData[data]}</td>})}
+
                       <td className='px-6 py-4 text-right'>
                         <div
                           onClick={handleModalOpen}

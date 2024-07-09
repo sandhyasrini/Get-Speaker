@@ -7,10 +7,10 @@ it('renders a table with table header', async () => {
   const result = renderWithProviders(<Table />, {
     preloadedState: {}
   })
-  expect(await screen.findByRole('table')).toBeInTheDocument()
+  expect(await screen.findByRole('table')).toBeTruthy()
   expect(
     await result.container.querySelector('#table-head')
-  ).toBeInTheDocument()
+  ).toBeTruthy()
 })
 
 it('renders developer details in rows', () => {
